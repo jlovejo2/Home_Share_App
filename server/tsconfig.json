@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    //reference typescript handbook on main website for all options here
+    //target javascript version compiler will output
+    "target": "es6",
+    //refers to module manager that is used in compiled javascript output
+    "module": "CommonJS",
+    //location of files for typeScript code
+    "rootDir": "./src",
+    //where typeScript code is compiled into javaScript code
+    "outDir": "./build",
+    //helps to compile commonJs modules into ES6 modules
+    "esModuleInterop": true,
+    //allows us to further enable strict typing options
+    "strict": true
+  }
+}
