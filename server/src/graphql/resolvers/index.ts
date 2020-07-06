@@ -1,7 +1,7 @@
 import merge from "lodash.merge";
-import { listingResolvers } from "./Listing";
+import { viewerResolvers } from "./Viewer";
 
 //preparing resolvers to merge multiple resolver maps
 //uses lodash.merge npm
 
-export const resolvers = merge(listingResolvers);
+export const resolvers = merge(viewerResolvers);
