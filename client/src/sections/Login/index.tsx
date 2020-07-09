@@ -1,7 +1,12 @@
-import React from "react";
-import { useApolloClient } from "@apollo/react-hooks";
+import React, { useEffect, useRef } from "react";
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import { Card, Layout, Typography } from "antd";
+import { LOG_IN } from "../../lib/graphql/mutations";
 import { AUTH_URL } from "../../lib/graphql/queries";
+import {
+  LogIn as LogInData,
+  LogInVariables,
+} from "../../lib/graphql/mutations/LogIn/__generated__/LogIn";
 import { AuthUrl as AuthUrlData } from "../../lib/graphql/queries/AuthUrl/__generated__/AuthUrl";
 import { Viewer } from "../../lib/types";
 
@@ -18,6 +23,32 @@ const { Text, Title } = Typography;
 
 export const Login = ({ setViewer }: Props) => {
   const client = useApolloClient();
+  const [
+    logIn,
+    { data: logInData, loading: logInLoading, error: logInError },
+  ] = useMutation<LogInData, LogInVariables>(LOG_IN, {
+    //callback function provided by useMutation hook in react apollo
+    onCompleted: (data) => {
+      if (data && data.logIn) {
+        setViewer(data.logIn);
+      }
+    },
+  });
+
+  //useRef hook creates a mutable version of the provided parameter
+  const logInRef = useRef(logIn);
+
+  useEffect(() => {
+    const code = new URL(window.location.href).searchParams.get("code");
+
+    if (code) {
+      logInRef.current({
+        variables: {
+          input: { code },
+        },
+      });
+    }
+  }, []);
 
   const handleAuthorize = async () => {
     try {
