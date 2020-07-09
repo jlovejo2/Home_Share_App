@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
+import { Redirect } from "react-router";
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
-import { Card, Layout, Typography } from "antd";
+import { Card, Layout, Spin, Typography } from "antd";
+import { ErrorBanner } from "../../lib/components";
 import { LOG_IN } from "../../lib/graphql/mutations";
 import { AUTH_URL } from "../../lib/graphql/queries";
 import {
@@ -8,6 +10,10 @@ import {
   LogInVariables,
 } from "../../lib/graphql/mutations/LogIn/__generated__/LogIn";
 import { AuthUrl as AuthUrlData } from "../../lib/graphql/queries/AuthUrl/__generated__/AuthUrl";
+import {
+  displayErrorMessage,
+  displaySuccessNotification,
+} from "../../lib/utils";
 import { Viewer } from "../../lib/types";
 
 //Image Assets
@@ -31,6 +37,7 @@ export const Login = ({ setViewer }: Props) => {
     onCompleted: (data) => {
       if (data && data.logIn) {
         setViewer(data.logIn);
+        displaySuccessNotification("You've successfully logged in.");
       }
     },
   });
@@ -56,10 +63,33 @@ export const Login = ({ setViewer }: Props) => {
         query: AUTH_URL,
       });
       window.location.href = data.authUrl;
-    } catch {}
+    } catch {
+      displayErrorMessage(
+        "Sorry! We weren't able to log you in. Try again later."
+      );
+    }
   };
+
+  if (logInLoading) {
+    return (
+      <Content className="log-in">
+        <Spin size="large" tip="Logging you in..." />
+      </Content>
+    );
+  }
+
+  if (logInData && logInData.logIn) {
+    const { id: viewerId } = logInData.logIn;
+    return <Redirect to={`/user/${viewerId}`} />;
+  }
+
+  const logInErrorBannerElement = logInError ? (
+    <ErrorBanner description="Sorry! We weren't able to log you in. Try again later." />
+  ) : null;
+
   return (
     <Content className="log-in">
+      {logInErrorBannerElement}
       <Card className="log-in-card">
         <div className="log-in-card__intro">
           <Title level={3} className="log-in-card__intro-title">
