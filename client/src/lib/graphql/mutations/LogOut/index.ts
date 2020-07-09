@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
 export const LOG_OUT = gql`
-  query LogOut($input: LogInInput) {
-    logOut(input: $input) {
+  mutation LogOut {
+    logOut {
       id
       token
       avatar
