@@ -33,14 +33,13 @@ const initialViewer: Viewer = {
 };
 const App = () => {
   const [viewer, setViewer] = useState<Viewer>(initialViewer);
-  console.log(viewer);
 
   return (
     <Router>
       <Layout id="app">
         {/*Affix is a component from ant design that makes what is wrapped to it be a fixed position */}
         <Affix offsetTop={0}>
-          <AppHeader viewer={viewer} />
+          <AppHeader viewer={viewer} setViewer={setViewer} />
         </Affix>
         <Switch>
           <Route exact path="/" component={Home} />
