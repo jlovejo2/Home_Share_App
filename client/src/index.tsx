@@ -3,8 +3,9 @@ import { render } from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
-import { Layout } from "antd";
+import { Layout, Affix } from "antd";
 import {
+  AppHeader,
   Home,
   Host,
   Login,
@@ -37,6 +38,10 @@ const App = () => {
   return (
     <Router>
       <Layout id="app">
+        {/*Affix is a component from ant design that makes what is wrapped to it be a fixed position */}
+        <Affix offsetTop={0}>
+          <AppHeader viewer={viewer} />
+        </Affix>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/host" component={Host} />
