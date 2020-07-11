@@ -3,6 +3,7 @@ require("dotenv").config();
 // const express = require("express");
 //typeScript supports import
 import express, { Application } from "express";
+import cookieParser from "cookie-parser";
 import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./graphql";
 import { connectDatabase } from "./database";
@@ -14,6 +15,8 @@ import { connectDatabase } from "./database";
 //mount function excepts the express app instance
 const mount = async (app: Application) => {
   const db = await connectDatabase();
+
+  app.use(cookieParser(process.env.SECRET));
   //creating instance of ApolloServer
   //passing in options needed to instantiate the apolloServer instance
   //ApolloSever expects an existing schema or object with typeDefs and resolvers to be passed into it
@@ -21,7 +24,7 @@ const mount = async (app: Application) => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: () => ({ db }),
+    context: ({ req, res }) => ({ db, req, res }),
   });
   //specify middleware to work alongisde existing server middleware
   //passing in express app instance and where graphql api should live
@@ -32,8 +35,8 @@ const mount = async (app: Application) => {
   console.log(`[app]: http://localhost:${process.env.PORT}`);
 
   //The below two lines of code are used to check that the connection to the database is made and the data is then console logged
-  const listings = await db.listings.find({}).toArray();
-  console.log(listings);
+  // const listings = await db.listings.find({}).toArray();
+  // console.log(listings);
 };
 
 //dismount function runs the express()
