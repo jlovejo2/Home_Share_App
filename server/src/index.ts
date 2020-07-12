@@ -5,8 +5,9 @@ require("dotenv").config();
 import express, { Application } from "express";
 import cookieParser from "cookie-parser";
 import { ApolloServer } from "apollo-server-express";
-import { typeDefs, resolvers } from "./graphql";
 import { connectDatabase } from "./database";
+import { typeDefs, resolvers } from "./graphql";
+
 // import bodyParser from "body-parser";
 // import { listings } from "./listings";
 

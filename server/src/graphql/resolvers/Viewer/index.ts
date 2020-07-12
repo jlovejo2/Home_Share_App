@@ -88,6 +88,7 @@ const logInViaGoogle = async (
 
   console.log("about to create cookie ");
   // console.log(res);
+
   res.cookie("viewer", userId, {
     ...cookieOptions,
     maxAge: 365 * 24 * 60 * 60 * 1000,
@@ -104,6 +105,7 @@ const logInViaCookie = async (
   req: Request,
   res: Response
 ): Promise<User | undefined> => {
+  console.log("logging in via cookie...");
   const updateRes = await db.users.findOneAndUpdate(
     { _id: req.signedCookies.viewer },
     { $set: { token } },
@@ -114,6 +116,7 @@ const logInViaCookie = async (
   let viewer = updateRes.value;
 
   if (!viewer) {
+    console.log("clearing cookie...");
     res.clearCookie("viewer", cookieOptions);
   }
 
@@ -139,7 +142,7 @@ export const viewerResolvers: IResolvers = {
       try {
         const code = input ? input.code : null;
         const token = crypto.randomBytes(16).toString("hex");
-
+        console.log("created token", token);
         const viewer: User | undefined = code
           ? await logInViaGoogle(code, token, db, res)
           : await logInViaCookie(token, db, req, res);

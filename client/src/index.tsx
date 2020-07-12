@@ -21,7 +21,7 @@ import "./styles/index.css";
 //create client constructor
 const client = new ApolloClient({
   //basically telling apollo where to find graphql
-  uri: "http://localhost:9000/api",
+  uri: "/api",
 });
 
 const initialViewer: Viewer = {
