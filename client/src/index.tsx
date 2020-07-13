@@ -28,6 +28,16 @@ import "./styles/index.css";
 const client = new ApolloClient({
   //basically telling apollo where to find graphql
   uri: "/api",
+  request: async (operation) => {
+    const token = sessionStorage.getItem("token");
+    //using the token || "" for x csrf token because it is generated once the user logs in.
+    //so at begining it does exist and an empty string is set to the csrf header instead if token doesn't exist yet in session storage.
+    operation.setContext({
+      headers: {
+        "X-CSRF-TOKEN": token || "",
+      },
+    });
+  },
 });
 
 const initialViewer: Viewer = {
@@ -43,6 +53,12 @@ const App = () => {
     onCompleted: (data) => {
       if (data && data.logIn) {
         setViewer(data.logIn);
+
+        if (data.logIn.token) {
+          sessionStorage.setItem("token", data.logIn.token);
+        } else {
+          sessionStorage.removeItem("token");
+        }
       }
     },
   });
