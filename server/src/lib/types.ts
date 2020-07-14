@@ -55,6 +55,7 @@ export interface User {
   //below is one to many relationship
   bookings: ObjectId[];
   listings: ObjectId[];
+  authorized?: boolean;
 }
 
 export interface Booking {
