@@ -20,7 +20,7 @@ export const userResolvers: IResolvers = {
 
         const viewer = await authorize(db, req);
 
-        if (viewer && viewer.id === user._id) {
+        if (viewer && viewer._id === user._id) {
           user.authorized = true;
         }
 
@@ -29,5 +29,18 @@ export const userResolvers: IResolvers = {
         throw new Error(`Failed to query user: ${error}`);
       }
     },
+  },
+  User: {
+    id: (user: User): string => {
+      return user._id;
+    },
+    hasWallet: (user: User): boolean => {
+      return Boolean(user.walletId);
+    },
+    income: (user: User): number | null => {
+      return user.authorized ? user.income : null;
+    },
+    bookings: () => {},
+    listings: () => {},
   },
 };
