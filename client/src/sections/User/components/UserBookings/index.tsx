@@ -42,7 +42,7 @@ export const UserBookings = ({
       }}
       renderItem={(userBooking) => {
         const bookingHistory = (
-          <div className="user-bookings__boking-history">
+          <div className="user-bookings__booking-history">
             <div>
               Check in: <Text strong>{userBooking.checkIn}</Text>
             </div>
