@@ -7,6 +7,7 @@ import {
   User as UserData,
   UserVariables,
 } from "../../lib/graphql/queries/User/__generated__/User";
+import { PageSkeleton, ErrorBanner } from "../../lib/components";
 import { Viewer } from "../../lib/types";
 import { UserProfile } from "./components";
 
@@ -30,7 +31,24 @@ export const User = ({
     },
   });
 
+  if (loading) {
+    return (
+      <Content className="user">
+        <PageSkeleton />
+      </Content>
+    );
+  }
+
+  if (error) {
+    return (
+      <Content className="user">
+        <ErrorBanner description="This user may not exist or we have encountered an error.  Please try again soon." />
+        <PageSkeleton />
+      </Content>
+    );
+  }
   const user = data ? data.user : null;
+  console.log(user);
   const viewerIsUser = viewer.id === match.params.id;
 
   const userProfileElement = user ? (
