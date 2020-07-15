@@ -77,7 +77,7 @@ export const User = ({
   const userBookingsElement = userBookings ? (
     <UserBookings
       userBookings={userBookings}
-      BookingsPage={BookingsPage}
+      bookingsPage={bookingsPage}
       limit={PAGE_LIMIT}
       setBookingsPage={setBookingsPage}
     />

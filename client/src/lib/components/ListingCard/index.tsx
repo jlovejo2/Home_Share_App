@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Icon, Typography } from "antd";
+import { Card, Typography } from "antd";
+import { Icon } from "@ant-design/compatible";
 
 interface Props {
   listing: {
@@ -20,8 +21,12 @@ export const ListingCard = ({ listing }: Props) => {
   return (
     <Card
       hoverable
-      cover={<div style={{ backgroundImage: `url(${image})` }} />}
-      className="listing-card__cover-img"
+      cover={
+        <div
+          className="listing-card__cover-img"
+          style={{ backgroundImage: `url(${image})` }}
+        />
+      }
     >
       <div className="listing-card__details">
         <div className="listing-card__description">
