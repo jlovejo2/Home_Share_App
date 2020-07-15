@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { useQuery } from "@apollo/react-hooks";
 import { PageSkeleton, ErrorBanner } from "../../lib/components";
-import { Layout } from "antd";
+import { Layout, Col, Row } from "antd";
 import { LISTING } from "../../lib/graphql/queries";
 import {
   Listing as ListingData,
   ListingVariables,
 } from "../../lib/graphql/queries/Listing/__generated__/Listing";
 import { Listings } from "../Listings";
-
+import { ListingDetails } from "./components";
 interface MatchParams {
   id: string;
 }
@@ -51,5 +51,17 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
   const listing = data ? data.listing : null;
   const listingBookings = listing ? listing.bookings : null;
 
-  return <h2>Listing</h2>;
+  const listingDetailsElement = listing ? (
+    <ListingDetails listing={listing} />
+  ) : null;
+
+  return (
+    <Content className="listing">
+      <Row gutter={24} justify="space-between">
+        <Col xs={24} lg={14}>
+          {listingDetailsElement}
+        </Col>
+      </Row>
+    </Content>
+  );
 };
