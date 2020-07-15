@@ -30,11 +30,6 @@ export const ListingCreateBooking = ({
   };
 
   const verifyAndSetCheckOutDate = (selectedCheckOutDate: Moment | null) => {
-    if (checkInDate === null) {
-      return displayErrorMessage(
-        `Please select Check In date prior to Check Out date`
-      );
-    }
     if (checkInDate && selectedCheckOutDate) {
       if (moment(selectedCheckOutDate).isBefore(checkInDate, "days")) {
         return displayErrorMessage(
@@ -44,6 +39,9 @@ export const ListingCreateBooking = ({
       setCheckOutDate(selectedCheckOutDate);
     }
   };
+
+  const checkOutInputDisabled = !checkInDate;
+  const buttonDisabled = !checkInDate || !checkOutDate;
 
   return (
     <div className="listing-booking">
@@ -61,8 +59,10 @@ export const ListingCreateBooking = ({
             <DatePicker
               value={checkInDate}
               onChange={(dateValue) => setCheckInDate(dateValue)}
+              showToday={false}
               format={"YYYY/MM/DD"}
               disabledDate={disabledDate}
+              onOpenChange={() => setCheckOutDate(null)}
             />
           </div>
           <div className="listing-booking__card-date-picker">
@@ -70,13 +70,16 @@ export const ListingCreateBooking = ({
             <DatePicker
               value={checkOutDate}
               onChange={(dateValue) => verifyAndSetCheckOutDate(dateValue)}
+              showToday={false}
               format={"YYYY/MM/DD"}
+              disabled={checkOutInputDisabled}
               disabledDate={disabledDate}
             />
           </div>
         </div>
         <Divider />
         <Button
+          disabled={buttonDisabled}
           size="large"
           type="primary"
           className="listing-booking__card-cta"
