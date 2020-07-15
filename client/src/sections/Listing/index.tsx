@@ -8,7 +8,11 @@ import {
   Listing as ListingData,
   ListingVariables,
 } from "../../lib/graphql/queries/Listing/__generated__/Listing";
-import { ListingDetails, ListingBookings } from "./components";
+import {
+  ListingDetails,
+  ListingBookings,
+  ListingCreateBooking,
+} from "./components";
 interface MatchParams {
   id: string;
 }
@@ -63,12 +67,17 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
     />
   ) : null;
 
+  const listingCreateBooking = <ListingCreateBooking />;
+
   return (
     <Content className="listing">
       <Row gutter={24} justify="space-between">
         <Col xs={24} lg={14}>
           {listingDetailsElement}
           {listingBookingsElement}
+        </Col>
+        <Col xs={24} lg={10}>
+          {listingCreateBooking}
         </Col>
       </Row>
     </Content>
