@@ -2,7 +2,7 @@ import { IResolvers } from "apollo-server-express";
 import { Request } from "express";
 import { Database, User } from "../../../lib/types";
 import { authorize } from "../../../lib/utils";
-import { UserArgs } from "./types";
+import { UserArgs, UserBookingsArgs, UserBookingsData } from "./types";
 
 export const userResolvers: IResolvers = {
   Query: {
@@ -40,7 +40,38 @@ export const userResolvers: IResolvers = {
     income: (user: User): number | null => {
       return user.authorized ? user.income : null;
     },
-    bookings: () => {},
+    bookings: async (
+      user: User,
+      { limit, page }: UserBookingsArgs,
+      { db }: { db: Database }
+    ): Promise<UserBookingsData | null> => {
+      try {
+        if (!user.authorized) {
+          return null;
+        }
+
+        const data: UserBookingsData = {
+          total: 0,
+          result: [],
+        };
+
+        let cursor = await db.bookings.find({
+          _id: { $in: user.bookings },
+        });
+
+        //allows us to skip a specified number of documents
+        cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
+        //page = 1 limit = 10; cursor starts at 0
+        cursor = cursor.limit(limit);
+
+        data.total = await cursor.count();
+        data.result = await cursor.toArray();
+
+        return data;
+      } catch (error) {
+        throw new Error(`Failed to query user bookings: ${error}`);
+      }
+    },
     listings: () => {},
   },
 };
