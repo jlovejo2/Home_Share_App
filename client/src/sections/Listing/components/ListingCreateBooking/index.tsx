@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button, DatePicker, Divider, Typography } from "antd";
 import moment, { Moment } from "moment";
-import { formatListingPrice } from "../../../../lib/utils";
+import { displayErrorMessage, formatListingPrice } from "../../../../lib/utils";
 
 const { Paragraph, Title } = Typography;
 
@@ -29,6 +29,22 @@ export const ListingCreateBooking = ({
     }
   };
 
+  const verifyAndSetCheckOutDate = (selectedCheckOutDate: Moment | null) => {
+    if (checkInDate === null) {
+      return displayErrorMessage(
+        `Please select Check In date prior to Check Out date`
+      );
+    }
+    if (checkInDate && selectedCheckOutDate) {
+      if (moment(selectedCheckOutDate).isBefore(checkInDate, "days")) {
+        return displayErrorMessage(
+          `You can't book date of check out to be prior to check in.`
+        );
+      }
+      setCheckOutDate(selectedCheckOutDate);
+    }
+  };
+
   return (
     <div className="listing-booking">
       <Card className="listing-booking__card">
@@ -53,7 +69,7 @@ export const ListingCreateBooking = ({
             <Paragraph strong>Check Out</Paragraph>
             <DatePicker
               value={checkOutDate}
-              onChange={(dateValue) => setCheckOutDate(dateValue)}
+              onChange={(dateValue) => verifyAndSetCheckOutDate(dateValue)}
               format={"YYYY/MM/DD"}
               disabledDate={disabledDate}
             />
