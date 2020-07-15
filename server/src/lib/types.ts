@@ -21,9 +21,9 @@ export interface BookingsIndexYear {
   [key: string]: BookingsIndexMonth;
 }
 
-export interface BookingsIndex {
-  [key: string]: BookingsIndexYear;
-}
+// export interface BookingsIndex {
+//   [key: string]: BookingsIndexYear;
+// }
 
 export interface Listing {
   _id: ObjectId;
@@ -38,7 +38,7 @@ export interface Listing {
   admin: string;
   city: string;
   bookings: ObjectId[];
-  bookingsIndex: BookingsIndex;
+  bookingsIndex: BookingsIndexYear;
   price: number;
   numOfGuests: number;
   authorized?: boolean;

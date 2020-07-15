@@ -13,12 +13,14 @@ export const listingsResolver: IResolvers = {
       { db, req }: { db: Database; req: Request }
     ): Promise<Listing> => {
       try {
+        console.log("query for listing");
         const listing = await db.listings.findOne({ _id: new ObjectId(id) });
 
         if (!listing) {
           throw new Error("listing can't be found");
         }
 
+        console.log("about to authorize");
         const viewer = await authorize(db, req);
         if (viewer && viewer._id === listing.host) {
           listing.authorized = true;
@@ -79,7 +81,7 @@ export const listingsResolver: IResolvers = {
 
         return data;
       } catch (error) {
-        throw new Error(`Failed to query user listings: ${error}`);
+        throw new Error(`Failed to query user listing bookings: ${error}`);
       }
     },
   },
