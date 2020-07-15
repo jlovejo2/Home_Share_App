@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ApolloClient, { from } from "apollo-boost";
+import ApolloClient from "apollo-boost";
 import { ApolloProvider, useMutation } from "react-apollo";
 import { Layout, Affix, Spin } from "antd";
 import {
