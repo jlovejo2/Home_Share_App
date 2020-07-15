@@ -29,6 +29,7 @@ export const User = ({
   const [listingsPage, setListingsPage] = useState(1);
   const [bookingsPage, setBookingsPage] = useState(1);
 
+  //useQuery hook is smart enough to run another query when any of the variables change
   const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
     variables: {
       id: match.params.id,
