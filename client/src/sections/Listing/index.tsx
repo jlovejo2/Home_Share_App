@@ -3,6 +3,7 @@ import { RouteComponentProps } from "react-router";
 import { useQuery } from "@apollo/react-hooks";
 import { PageSkeleton, ErrorBanner } from "../../lib/components";
 import { Layout, Col, Row } from "antd";
+import { Moment } from "moment";
 import { LISTING } from "../../lib/graphql/queries";
 import {
   Listing as ListingData,
@@ -23,6 +24,9 @@ const { Content } = Layout;
 
 export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
   const [bookingsPage, setBookingsPage] = useState(1);
+  const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
+
   const { data, loading, error } = useQuery<ListingData, ListingVariables>(
     LISTING,
     {
@@ -67,8 +71,14 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
     />
   ) : null;
 
-  const listingCreateBooking = listing ? (
-    <ListingCreateBooking price={listing.price} />
+  const listingCreateBookingElement = listing ? (
+    <ListingCreateBooking
+      price={listing.price}
+      checkInDate={checkInDate}
+      checkOutDate={checkOutDate}
+      setCheckInDate={setCheckInDate}
+      setCheckOutDate={setCheckOutDate}
+    />
   ) : null;
 
   return (
@@ -79,7 +89,7 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
           {listingBookingsElement}
         </Col>
         <Col xs={24} lg={10}>
-          {listingCreateBooking}
+          {listingCreateBookingElement}
         </Col>
       </Row>
     </Content>
