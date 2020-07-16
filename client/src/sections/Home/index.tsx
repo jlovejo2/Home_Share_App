@@ -1,16 +1,37 @@
 import React from "react";
 import { RouteComponentProps, Link } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
+import { LISTINGS } from "../../lib/graphql/queries";
+import {
+  Listings as ListingsData,
+  ListingsVariables,
+} from "../../lib/graphql/queries/Listings/__generated__/Listings";
 import { Col, Row, Layout, Typography } from "antd";
 import { displayErrorMessage } from "../../lib/utils";
-import { HomeHero } from "./components";
-
+import { HomeHero, HomeListings } from "./components";
+import { ListingsFilter } from "../../lib/graphql/globalTypes";
 import mapBackground from "./assets/map-background.jpg";
 import sanFranciscoImage from "./assets/san-fransisco.jpg";
 import cancunImage from "./assets/cancun.jpg";
+
 const { Content } = Layout;
 const { Paragraph, Title } = Typography;
 
+const PAGE_LIMIT = 4;
+const PAGE_NUMBER = 1;
+
 export const Home = ({ history }: RouteComponentProps) => {
+  const { data, loading } = useQuery<ListingsData, ListingsVariables>(
+    LISTINGS,
+    {
+      variables: {
+        filter: ListingsFilter.PRICE_HIGH_TO_LOW,
+        limit: PAGE_LIMIT,
+        page: PAGE_NUMBER,
+      },
+    }
+  );
+
   const onSearch = (value: String) => {
     const trimmedValue = value.trim();
 
@@ -19,6 +40,23 @@ export const Home = ({ history }: RouteComponentProps) => {
     } else {
       displayErrorMessage("Please enter a valid search.");
     }
+  };
+
+  const renderListingSection = () => {
+    if (loading) {
+      return "Loading...";
+    }
+
+    if (data) {
+      return (
+        <HomeListings
+          title="Premium Listings"
+          listings={data.listings.result}
+        />
+      );
+    }
+
+    return null;
   };
 
   return (
@@ -40,6 +78,9 @@ export const Home = ({ history }: RouteComponentProps) => {
           Popular listings in the United States
         </Link>
       </div>
+
+      {renderListingSection()}
+
       <div className="home__listings">
         <Title level={4} className="home__listings-title">
           Listings of any kind
