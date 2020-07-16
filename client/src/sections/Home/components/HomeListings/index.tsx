@@ -12,7 +12,7 @@ const { Title } = Typography;
 
 export const HomeListings = ({ title, listings }: Props) => {
   return (
-    <div>
+    <div className="home-listings">
       <Title level={4} className="home-listings__title">
         {title}
       </Title>
