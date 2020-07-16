@@ -64,6 +64,7 @@ export const typeDefs = gql`
     authUrl: String!
     user(id: ID!): User!
     listing(id: ID!): Listing!
+    listings: String!
   }
 
   input LogInInput {
