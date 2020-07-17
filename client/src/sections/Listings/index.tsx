@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { RouteComponentProps, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { Layout, List, Typography } from "antd";
@@ -20,10 +20,11 @@ interface MatchParams {
 }
 
 export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
+  const [filter, setFilter] = useState(ListingsFilter.PRICE_LOW_TO_HIGH);
   const { data } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
     variables: {
       location: match.params.location,
-      filter: ListingsFilter.PRICE_LOW_TO_HIGH,
+      filter: filter,
       limit: PAGE_LIMIT,
       page: 1,
     },
