@@ -1,7 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { Layout, List } from "antd";
+import { Layout, List, Typography } from "antd";
 import { ListingCard } from "../../lib/components";
 import { LISTINGS } from "../../lib/graphql/queries";
 import {
@@ -11,6 +11,7 @@ import {
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
 
 const { Content } = Layout;
+const { Title } = Typography;
 
 const PAGE_LIMIT = 8;
 
@@ -29,7 +30,7 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
   });
 
   const listings = data ? data.listings : null;
-
+  const listingsRegion = listings ? listings.region : null;
   const listingsSectionElement = listings ? (
     <List
       grid={{
@@ -47,5 +48,16 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
     />
   ) : null;
 
-  return <Content>{listingsSectionElement}</Content>;
+  const listingsRegionElement = listingsRegion ? (
+    <Title level={3} className="listings__title">
+      Results for "{listingsRegion}"
+    </Title>
+  ) : null;
+
+  return (
+    <Content>
+      {listingsRegionElement}
+      {listingsSectionElement}
+    </Content>
+  );
 };
