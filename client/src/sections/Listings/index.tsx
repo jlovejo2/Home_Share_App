@@ -9,6 +9,7 @@ import {
   ListingsVariables,
 } from "../../lib/graphql/queries/Listings/__generated__/Listings";
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
+import { ListingsFilters } from "./components";
 
 const { Content } = Layout;
 const { Title, Paragraph, Text } = Typography;
@@ -34,20 +35,23 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
   const listingsRegion = listings ? listings.region : null;
   const listingsSectionElement =
     listings && listings.result.length ? (
-      <List
-        grid={{
-          gutter: 8,
-          xs: 1,
-          sm: 2,
-          lg: 4,
-        }}
-        dataSource={listings.result}
-        renderItem={(listings) => (
-          <List.Item>
-            <ListingCard listing={listings} />
-          </List.Item>
-        )}
-      />
+      <div>
+        <ListingsFilters filter={filter} setFilter={setFilter} />
+        <List
+          grid={{
+            gutter: 8,
+            xs: 1,
+            sm: 2,
+            lg: 4,
+          }}
+          dataSource={listings.result}
+          renderItem={(listings) => (
+            <List.Item>
+              <ListingCard listing={listings} />
+            </List.Item>
+          )}
+        />
+      </div>
     ) : (
       <div>
         <Paragraph>
