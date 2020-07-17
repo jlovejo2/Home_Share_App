@@ -9,12 +9,12 @@ import {
   ListingsVariables,
 } from "../../lib/graphql/queries/Listings/__generated__/Listings";
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
-import { ListingsFilters } from "./components";
+import { ListingsFilters, ListingsPagination } from "./components";
 
 const { Content } = Layout;
 const { Title, Paragraph, Text } = Typography;
 
-const PAGE_LIMIT = 8;
+const PAGE_LIMIT = 4;
 
 interface MatchParams {
   location: string;
@@ -22,12 +22,14 @@ interface MatchParams {
 
 export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
   const [filter, setFilter] = useState(ListingsFilter.PRICE_LOW_TO_HIGH);
+  const [page, setPage] = useState(1);
+
   const { data } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
     variables: {
       location: match.params.location,
       filter: filter,
       limit: PAGE_LIMIT,
-      page: 1,
+      page: page,
     },
   });
 
@@ -36,6 +38,12 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
   const listingsSectionElement =
     listings && listings.result.length ? (
       <div>
+        <ListingsPagination
+          total={listings.total}
+          page={page}
+          limit={PAGE_LIMIT}
+          setPage={setPage}
+        />
         <ListingsFilters filter={filter} setFilter={setFilter} />
         <List
           grid={{
@@ -71,7 +79,7 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
   ) : null;
 
   return (
-    <Content>
+    <Content className="listings">
       {listingsRegionElement}
       {listingsSectionElement}
     </Content>
