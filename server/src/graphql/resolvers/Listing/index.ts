@@ -54,15 +54,10 @@ export const listingsResolver: IResolvers = {
         };
 
         if (location) {
-          // const result = await Google.geocode(location);
           const { country, admin, city } = await Google.geocode(location);
-          // console.log(result);
-          // console.log("country: ", country);
-          // console.log("admin: ", admin);
-          // console.log("city: ", city);
+
           console.log("query: ", query);
           if (city) {
-            console.log("city not null");
             query.city = city;
           }
           if (admin) {
@@ -75,12 +70,10 @@ export const listingsResolver: IResolvers = {
           }
 
           const cityText = city ? `${city}, ` : "";
-          const adminText = admin ? `${admin},` : "";
+          const adminText = admin ? `${admin}, ` : "";
           data.region = `${cityText}${adminText}${country}`;
-
-          console.log(data);
         }
-        console.log("query: ", query);
+
         let cursor = await db.listings.find(query);
 
         if (filter && filter === ListingsFilter.PRICE_LOW_TO_HIGH) {
