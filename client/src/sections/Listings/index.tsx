@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { Layout, List, Typography } from "antd";
 import { ListingCard } from "../../lib/components";
@@ -11,7 +11,7 @@ import {
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
 
 const { Content } = Layout;
-const { Title } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 const PAGE_LIMIT = 8;
 
@@ -31,22 +31,33 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
 
   const listings = data ? data.listings : null;
   const listingsRegion = listings ? listings.region : null;
-  const listingsSectionElement = listings ? (
-    <List
-      grid={{
-        gutter: 8,
-        xs: 1,
-        sm: 2,
-        lg: 4,
-      }}
-      dataSource={listings.result}
-      renderItem={(listings) => (
-        <List.Item>
-          <ListingCard listing={listings} />
-        </List.Item>
-      )}
-    />
-  ) : null;
+  const listingsSectionElement =
+    listings && listings.result.length ? (
+      <List
+        grid={{
+          gutter: 8,
+          xs: 1,
+          sm: 2,
+          lg: 4,
+        }}
+        dataSource={listings.result}
+        renderItem={(listings) => (
+          <List.Item>
+            <ListingCard listing={listings} />
+          </List.Item>
+        )}
+      />
+    ) : (
+      <div>
+        <Paragraph>
+          It appears that no listings have yet been created for{" "}
+          <Text mark>"{listingsRegion}"</Text>
+        </Paragraph>
+        <Paragraph>
+          Be the first to create a <Link to="/host">listing in this area</Link>!
+        </Paragraph>
+      </div>
+    );
 
   const listingsRegionElement = listingsRegion ? (
     <Title level={3} className="listings__title">
