@@ -3,12 +3,12 @@ import { List, Card, Skeleton } from "antd";
 
 import listingLoadingCardCover from "../../assets/listing-loading-card-cover.jpg";
 
-export const HomeListingsSkeleton = () => {
-  const emptyData = [{}, {}, {}, {}];
+export const ListingsSkeleton = () => {
+  const emptyData = [{}, {}, {}, {}, {}, {}, {}, {}];
 
   return (
-    <div className="home-listings-skeleton">
-      <Skeleton paragraph={{ rows: 0 }} />
+    <div>
+      <Skeleton paragraph={{ rows: 1 }} />
       <List
         grid={{
           gutter: 8,
@@ -22,12 +22,12 @@ export const HomeListingsSkeleton = () => {
             <Card
               cover={
                 <div
-                  className="home-listings-skeleton__card-cover-img"
+                  className="listings-skeleton__card-cover-img"
                   style={{ backgroundImage: `url(${listingLoadingCardCover})` }}
                 ></div>
               }
               loading
-              className="home-listings-skeleton__card"
+              className="listings-skeleton__card"
             />
           </List.Item>
         )}
