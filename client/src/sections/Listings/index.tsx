@@ -1,4 +1,5 @@
 import React from "react";
+import { RouteComponentProps } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { Layout, List } from "antd";
 import { ListingCard } from "../../lib/components";
@@ -13,9 +14,14 @@ const { Content } = Layout;
 
 const PAGE_LIMIT = 8;
 
-export const Listings = () => {
+interface MatchParams {
+  location: string;
+}
+
+export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
   const { data } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
     variables: {
+      location: match.params.location,
       filter: ListingsFilter.PRICE_LOW_TO_HIGH,
       limit: PAGE_LIMIT,
       page: 1,
