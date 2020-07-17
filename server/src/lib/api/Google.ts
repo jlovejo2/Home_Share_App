@@ -10,9 +10,9 @@ const auth = new google.auth.OAuth2(
 const maps = new Client({});
 
 const parseAddress = (addressComponents: AddressComponent[]) => {
-  let country = "null";
-  let admin = "null";
-  let city = "null";
+  let country = null;
+  let admin = null;
+  let city = null;
 
   for (const component of addressComponents) {
     console.log(component);
@@ -63,8 +63,6 @@ export const Google = {
         key: `${process.env.G_GEOCODE_KEY}`,
       },
     });
-
-    console.log(res);
 
     if (res.status < 200 || res.status > 299) {
       throw new Error("failed to geocode address");

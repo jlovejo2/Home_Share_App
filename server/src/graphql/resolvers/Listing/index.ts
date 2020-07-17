@@ -60,9 +60,14 @@ export const listingsResolver: IResolvers = {
           // console.log("country: ", country);
           // console.log("admin: ", admin);
           // console.log("city: ", city);
-
-          if (city) query.city = city;
-          if (admin) query.admin = admin;
+          console.log("query: ", query);
+          if (city) {
+            console.log("city not null");
+            query.city = city;
+          }
+          if (admin) {
+            query.admin = admin;
+          }
           if (country) {
             query.country = country;
           } else {
@@ -72,8 +77,10 @@ export const listingsResolver: IResolvers = {
           const cityText = city ? `${city}, ` : "";
           const adminText = admin ? `${admin},` : "";
           data.region = `${cityText}${adminText}${country}`;
-        }
 
+          console.log(data);
+        }
+        console.log("query: ", query);
         let cursor = await db.listings.find(query);
 
         if (filter && filter === ListingsFilter.PRICE_LOW_TO_HIGH) {
