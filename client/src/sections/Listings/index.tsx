@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { RouteComponentProps, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { Layout, List, Typography } from "antd";
+import { Affix, Layout, List, Typography } from "antd";
 import { ListingCard } from "../../lib/components";
 import { LISTINGS } from "../../lib/graphql/queries";
 import {
@@ -14,7 +14,7 @@ import { ListingsFilters, ListingsPagination } from "./components";
 const { Content } = Layout;
 const { Title, Paragraph, Text } = Typography;
 
-const PAGE_LIMIT = 4;
+const PAGE_LIMIT = 8;
 
 interface MatchParams {
   location: string;
@@ -38,13 +38,15 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
   const listingsSectionElement =
     listings && listings.result.length ? (
       <div>
-        <ListingsPagination
-          total={listings.total}
-          page={page}
-          limit={PAGE_LIMIT}
-          setPage={setPage}
-        />
-        <ListingsFilters filter={filter} setFilter={setFilter} />
+        <Affix offsetTop={64}>
+          <ListingsPagination
+            total={listings.total}
+            page={page}
+            limit={PAGE_LIMIT}
+            setPage={setPage}
+          />
+          <ListingsFilters filter={filter} setFilter={setFilter} />
+        </Affix>
         <List
           grid={{
             gutter: 8,
