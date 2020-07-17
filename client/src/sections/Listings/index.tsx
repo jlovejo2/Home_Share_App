@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { RouteComponentProps, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { Affix, Layout, List, Typography } from "antd";
-import { ListingCard } from "../../lib/components";
+import { ListingCard, ErrorBanner } from "../../lib/components";
 import { LISTINGS } from "../../lib/graphql/queries";
 import {
   Listings as ListingsData,
@@ -43,6 +43,15 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
   if (loading) {
     return (
       <Content className="listings">
+        <ListingsSkeleton />
+      </Content>
+    );
+  }
+
+  if (error) {
+    return (
+      <Content className="listings">
+        <ErrorBanner description="We either couldn't find anything matching your search or have encountered an error. If you're searching for a unique location, try searching again with more common keywords." />
         <ListingsSkeleton />
       </Content>
     );
