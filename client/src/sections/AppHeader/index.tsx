@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import { Input, Layout } from "antd";
 import { MenuItems } from "./components";
@@ -20,6 +20,7 @@ const { Search } = Input;
 //therefore it did not just have access to it so I need to use withRouter()
 export const AppHeader = withRouter(
   ({ viewer, setViewer, history }: Props & RouteComponentProps) => {
+    const [search, setSearch] = useState("");
     const onSearch = (value: string) => {
       const trimmedValue = value.trim();
 
@@ -42,6 +43,8 @@ export const AppHeader = withRouter(
             <Search
               placeholder="Search 'San Francisco'"
               enterButton
+              value={search}
+              onChange={(evt) => setSearch(evt.target.value)}
               onSearch={onSearch}
             />
           </div>
