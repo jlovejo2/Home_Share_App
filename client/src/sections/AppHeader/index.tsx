@@ -19,8 +19,27 @@ const { Search } = Input;
 //this is being done because I needed access to history for history.push() but AppHeader was not a apart of the Routes in root index.tsx
 //therefore it did not just have access to it so I need to use withRouter()
 export const AppHeader = withRouter(
-  ({ viewer, setViewer, history }: Props & RouteComponentProps) => {
+  ({ viewer, setViewer, location, history }: Props & RouteComponentProps) => {
     const [search, setSearch] = useState("");
+
+    useEffect(() => {
+      //react router obj location gives us url at any time
+      //withRouter does this too with location and history
+      //can't use match object because it is only route relative. Any only can use nearest route
+      const { pathname } = location;
+      const pathnameSubStrings = pathname.split("/");
+
+      if (!pathname.includes("/listings")) {
+        setSearch("");
+        return;
+      }
+
+      if (pathname.includes("/listings") && pathnameSubStrings.length === 3) {
+        setSearch(pathnameSubStrings[2]);
+        return;
+      }
+    }, [location]);
+
     const onSearch = (value: string) => {
       const trimmedValue = value.trim();
 
