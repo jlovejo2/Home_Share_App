@@ -68,6 +68,14 @@ export const typeDefs = gql`
     didRequest: Boolean!
   }
 
+  input LogInInput {
+    code: String!
+  }
+
+  input ConnectStripe {
+    code: String!
+  }
+
   type Query {
     authUrl: String!
     user(id: ID!): User!
@@ -80,12 +88,10 @@ export const typeDefs = gql`
     ): Listings!
   }
 
-  input LogInInput {
-    code: String!
-  }
-
   type Mutation {
     logIn(input: LogInInput): Viewer!
     logOut: Viewer!
+    connectStripe(input: ConnectStripe!): Viewer!
+    disconnectStripe: Viewer!
   }
 `;
