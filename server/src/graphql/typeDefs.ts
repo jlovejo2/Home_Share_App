@@ -72,7 +72,7 @@ export const typeDefs = gql`
     code: String!
   }
 
-  input ConnectStripe {
+  input ConnectStripeInput {
     code: String!
   }
 
@@ -91,7 +91,7 @@ export const typeDefs = gql`
   type Mutation {
     logIn(input: LogInInput): Viewer!
     logOut: Viewer!
-    connectStripe(input: ConnectStripe!): Viewer!
+    connectStripe(input: ConnectStripeInput!): Viewer!
     disconnectStripe: Viewer!
   }
 `;

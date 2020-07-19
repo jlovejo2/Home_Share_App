@@ -1,7 +1,10 @@
 import stripe from "stripe";
 
 const client = new stripe(`${process.env.S_SECRET_KEY}`, {
+  /*eslint-disable @typescript-eslint/ban-ts-ignore */
+  //@ts-ignore
   apiVersion: "2019-12-03",
+  /*eslint-disable @typescript-eslint/ban-ts-ignore */
 });
 
 export const Stripe = {
