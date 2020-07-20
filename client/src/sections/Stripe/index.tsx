@@ -8,18 +8,30 @@ import {
   ConnectStripeVariables,
 } from "../../lib/graphql/mutations/ConnectStripe/__generated__/ConnectStripe";
 import { Viewer } from "../../lib/types";
+import { displaySuccessNotification } from "../../lib/utils";
 
 interface Props {
   viewer: Viewer;
+  setViewer: (viewer: Viewer) => void;
 }
 
 const { Content } = Layout;
 
-export const Stripe = ({ viewer }: Props) => {
+export const Stripe = ({ viewer, setViewer }: Props) => {
   const [connectStripe, { data, loading, error }] = useMutation<
     ConnectStripeData,
     ConnectStripeVariables
-  >(CONNECT_STRIPE);
+  >(CONNECT_STRIPE, {
+    onCompleted: (data) => {
+      if (data && data.connectStripe) {
+        setViewer({ ...viewer, hasWallet: data.connectStripe.hasWallet });
+        displaySuccessNotification(
+          "You've successfully connected your Stripe account.",
+          "You can now begin to create listings in the Host page."
+        );
+      }
+    },
+  });
 
   const connectStripeRef = useRef(connectStripe);
 
@@ -37,6 +49,10 @@ export const Stripe = ({ viewer }: Props) => {
     });
   }, []);
 
+  if (data && connectStripe) {
+    return <Redirect to={`/user/${viewer.id}`} />;
+  }
+
   if (loading) {
     return (
       <Content className="stripe">
@@ -48,4 +64,6 @@ export const Stripe = ({ viewer }: Props) => {
   if (error) {
     return <Redirect to={`/user/${viewer.id}?strip_error=true`} />;
   }
+
+  return null;
 };
