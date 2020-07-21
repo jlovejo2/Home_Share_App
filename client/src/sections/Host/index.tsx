@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Form, Input, Layout, Typography } from "antd";
+import { Form, Input, InputNumber, Layout, Radio, Typography } from "antd";
 import { Viewer } from "../../lib/types";
+import { ListingType } from "../../lib/graphql/globalTypes";
+import { Icon } from "@ant-design/compatible";
+import { iconColor } from "../../lib/utils";
 
 interface Props {
   viewer: Viewer;
@@ -43,6 +46,18 @@ export const Host = ({ viewer }: Props) => {
             about your listing.
           </Text>
         </div>
+        <Item label="Home Type">
+          <Radio.Group>
+            <Radio.Button value={ListingType.APARTMENT}>
+              <Icon type="bank" style={{ color: iconColor }} />
+              <span>Apartment</span>
+            </Radio.Button>
+            <Radio.Button value={ListingType.HOUSE}>
+              <Icon type="home" style={{ color: iconColor }} />
+              <span>House</span>
+            </Radio.Button>
+          </Radio.Group>
+        </Item>
         <Item label="Title" extra="Max character count of 45">
           <Input placeholder="The iconic and luxurious Bel-Air mansion" />
         </Item>
@@ -64,6 +79,9 @@ export const Host = ({ viewer }: Props) => {
         </Item>
         <Item label="Zip/Postal Code">
           <Input placeholder="Please enter a zip code for your listing" />
+        </Item>
+        <Item label="Price" extra="All prices in $USD/day">
+          <InputNumber min={0} placeholder="120" />
         </Item>
       </Form>
     </Content>
