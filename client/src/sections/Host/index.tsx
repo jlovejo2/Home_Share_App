@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
+  Button,
   Form,
   Input,
   InputNumber,
@@ -26,7 +27,9 @@ const { Item } = Form;
 export const Host = ({ viewer }: Props) => {
   const [imageLoading, setImageLoading] = useState(false);
   const [imageBase64Value, setImageBase64Value] = useState<string | null>(null);
-  console.log(imageBase64Value);
+
+  const handleFormSubmit = () => {};
+
   const handleImageUpload = (info: UploadChangeParam) => {
     const { file } = info;
 
@@ -134,6 +137,11 @@ export const Host = ({ viewer }: Props) => {
         </Item>
         <Item label="Price" extra="All prices in $USD/day">
           <InputNumber min={0} placeholder="120" />
+        </Item>
+        <Item>
+          <Button type="primary" onChange={handleFormSubmit}>
+            Submit
+          </Button>
         </Item>
       </Form>
     </Content>
