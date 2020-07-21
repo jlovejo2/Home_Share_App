@@ -11,7 +11,7 @@ const { Content } = Layout;
 const { Text, Title } = Typography;
 
 export const Host = ({ viewer }: Props) => {
-  if (!viewer.id || viewer.hasWallet) {
+  if (!viewer.id || !viewer.hasWallet) {
     return (
       <Content className="host-content">
         <div className="host__form-header">
