@@ -16,37 +16,46 @@ export const UserProfile = ({ user, viewerIsUser }: Props) => {
     window.location.href = stripeAuthUrl;
   };
 
+  const additionalDetails = user.hasWallet ? (
+    <Fragment></Fragment>
+  ) : (
+    <Fragment>
+      <Paragraph>
+        Interested in becoming a TinyHouse host? Register with your Stripe
+        account!
+      </Paragraph>
+      <Button
+        type="primary"
+        className="user-profile__details-cta"
+        onClick={redirectToStripe}
+      >
+        Connect with Stripe
+      </Button>
+      <Paragraph type="secondary">
+        TinyHouse uses{" "}
+        <a
+          href="https://stripe.com/en-US/connect"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {" "}
+          Stripe
+        </a>{" "}
+        to help transfer your earnings in a secure and trustful manner.
+      </Paragraph>
+    </Fragment>
+  );
+
   const additionalDetailSection = viewerIsUser ? (
     <Fragment>
       <Divider />
       <div className="user-profile__details">
         <Title level={4}>Additional Details</Title>
-        <Paragraph>
-          Interested in becoming a TinyHouse host? Register with your Stripe
-          account!
-        </Paragraph>
-        <Button
-          type="primary"
-          className="user-profile__details-cta"
-          onClick={redirectToStripe}
-        >
-          Connect with Stripe
-        </Button>
-        <Paragraph type="secondary">
-          TinyHouse uses{" "}
-          <a
-            href="https://stripe.com/en-US/connect"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {" "}
-            Stripe
-          </a>{" "}
-          to help transfer your earnings in a secure and trustful manner.
-        </Paragraph>
+        {additionalDetails}
       </div>
     </Fragment>
   ) : null;
+
   return (
     <div className="user-profile">
       <Card className="user-profile__card">
