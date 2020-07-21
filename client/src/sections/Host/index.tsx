@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -15,6 +15,7 @@ import { ListingType } from "../../lib/graphql/globalTypes";
 import { Icon } from "@ant-design/compatible";
 import { iconColor, displayErrorMessage } from "../../lib/utils";
 import { UploadChangeParam } from "antd/lib/upload";
+import { Store } from "antd/lib/form/interface";
 
 interface Props {
   viewer: Viewer;
@@ -28,12 +29,13 @@ export const Host = ({ viewer }: Props) => {
   const [imageLoading, setImageLoading] = useState(false);
   const [imageBase64Value, setImageBase64Value] = useState<string | null>(null);
 
-  const handleHostListing = (values: {}) => {
-    console.log("values: ", values);
+  const handleHostListing = (values: Store) => {
+    console.log("success: ", values);
+  };
 
-    // const values = form.validateFields();
-
-    // console.log(evt);
+  const handleHostListingFormFail = (errorInfo: Store) => {
+    console.log("error: ", errorInfo);
+    displayErrorMessage("Please fill in required fields.");
   };
 
   const handleImageUpload = (info: UploadChangeParam) => {
@@ -73,7 +75,11 @@ export const Host = ({ viewer }: Props) => {
 
   return (
     <Content className="host-content">
-      <Form layout="vertical" onFinish={handleHostListing}>
+      <Form
+        layout="vertical"
+        onFinishFailed={handleHostListingFormFail}
+        onFinish={handleHostListing}
+      >
         <div className="host__form-header">
           <Title level={3} className="host__form-title">
             Hi! Let's get start listing your place.
