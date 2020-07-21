@@ -17,6 +17,7 @@ interface Props {
   viewer: Viewer;
   setViewer: (viewer: Viewer) => void;
   viewerIsUser: boolean;
+  handleUserRefetch: () => void;
 }
 
 const stripeAuthUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_S_CLIENT_ID}&scope=read_write`;
@@ -27,6 +28,7 @@ export const UserProfile = ({
   viewer,
   viewerIsUser,
   setViewer,
+  handleUserRefetch,
 }: Props) => {
   const [disconnectStripe, { loading }] = useMutation<DisconnectStripeData>(
     DISCONNECT_STRIPE,
@@ -38,6 +40,7 @@ export const UserProfile = ({
             "You've successfully disconnect from Stripe",
             "You'll have to reconnect with Stripe to continue to create listings."
           );
+          handleUserRefetch();
         }
       },
       onError: () => {

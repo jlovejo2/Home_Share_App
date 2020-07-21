@@ -32,18 +32,28 @@ export const User = ({
   const [bookingsPage, setBookingsPage] = useState(1);
 
   //useQuery hook is smart enough to run another query when any of the variables change
-  const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
-    variables: {
-      id: match.params.id,
-      bookingsPage,
-      listingsPage,
-      limit: PAGE_LIMIT,
-    },
-  });
+  const { data, loading, refetch, error } = useQuery<UserData, UserVariables>(
+    USER,
+    {
+      variables: {
+        id: match.params.id,
+        bookingsPage,
+        listingsPage,
+        limit: PAGE_LIMIT,
+      },
+    }
+  );
+
+  const handleUserRefetch = async () => {
+    refetch();
+  };
 
   const stripeError = new URL(window.location.href).searchParams.get(
     "stripe_error"
   );
+
+  console.log(stripeError);
+
   const stripeErrorBanner = stripeError ? (
     <ErrorBanner
       description={
@@ -81,6 +91,7 @@ export const User = ({
       viewer={viewer}
       viewerIsUser={viewerIsUser}
       setViewer={setViewer}
+      handleUserRefetch={handleUserRefetch}
     />
   ) : null;
 
