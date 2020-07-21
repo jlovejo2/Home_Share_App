@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 import { Layout, Spin } from "antd";
 import { CONNECT_STRIPE } from "../../lib/graphql/mutations";
@@ -17,7 +17,11 @@ interface Props {
 
 const { Content } = Layout;
 
-export const Stripe = ({ viewer, setViewer }: Props) => {
+export const Stripe = ({
+  viewer,
+  setViewer,
+  history,
+}: Props & RouteComponentProps) => {
   const [connectStripe, { data, loading, error }] = useMutation<
     ConnectStripeData,
     ConnectStripeVariables
@@ -33,23 +37,31 @@ export const Stripe = ({ viewer, setViewer }: Props) => {
     },
   });
 
+  console.log("data: ", data);
+  console.log("loading: ", loading);
+  console.log("error: ", error);
+
   const connectStripeRef = useRef(connectStripe);
 
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code");
 
-    if (!code) {
-      throw new Error("Code null from stripe account");
+    // if (!code) {
+    //   throw new Error("Code null from stripe account");
+    // }
+
+    if (code) {
+      connectStripeRef.current({
+        variables: {
+          input: { code },
+        },
+      });
+    } else {
+      history.replace("/login");
     }
+  }, [history]);
 
-    connectStripeRef.current({
-      variables: {
-        input: { code },
-      },
-    });
-  }, []);
-
-  if (data && connectStripe) {
+  if (data && data.connectStripe) {
     return <Redirect to={`/user/${viewer.id}`} />;
   }
 
@@ -62,7 +74,7 @@ export const Stripe = ({ viewer, setViewer }: Props) => {
   }
 
   if (error) {
-    return <Redirect to={`/user/${viewer.id}?strip_error=true`} />;
+    return <Redirect to={`/user/${viewer.id}?stripe_error=true`} />;
   }
 
   return null;
