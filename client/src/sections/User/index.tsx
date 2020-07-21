@@ -13,6 +13,7 @@ import { UserBookings, UserListings, UserProfile } from "./components";
 
 interface Props {
   viewer: Viewer;
+  setViewer: (viewer: Viewer) => void;
 }
 
 interface MatchParams {
@@ -25,6 +26,7 @@ const PAGE_LIMIT = 4;
 export const User = ({
   viewer,
   match,
+  setViewer,
 }: Props & RouteComponentProps<MatchParams>) => {
   const [listingsPage, setListingsPage] = useState(1);
   const [bookingsPage, setBookingsPage] = useState(1);
@@ -74,7 +76,12 @@ export const User = ({
   const userBookings = user ? user.bookings : null;
 
   const userProfileElement = user ? (
-    <UserProfile user={user} viewerIsUser={viewerIsUser} />
+    <UserProfile
+      user={user}
+      viewer={viewer}
+      viewerIsUser={viewerIsUser}
+      setViewer={setViewer}
+    />
   ) : null;
 
   const userListingsElement = userListings ? (
