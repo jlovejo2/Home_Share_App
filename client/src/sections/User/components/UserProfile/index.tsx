@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
-import { Avatar, Button, Card, Divider, Typography } from "antd";
+import { Avatar, Button, Card, Divider, Tag, Typography } from "antd";
 import { User as UserData } from "../../../../lib/graphql/queries/User/__generated__/User";
+import { formatListingPrice } from "../../../../lib/utils";
 
 interface Props {
   //using indexed access types here
@@ -17,7 +18,25 @@ export const UserProfile = ({ user, viewerIsUser }: Props) => {
   };
 
   const additionalDetails = user.hasWallet ? (
-    <Fragment></Fragment>
+    <Fragment>
+      <Paragraph>
+        <Tag color="green"> Stripe Registerd</Tag>
+      </Paragraph>
+      <Paragraph>
+        Income Earned:{" "}
+        <Text strong>
+          {user.income ? formatListingPrice(user.income) : `$0`}{" "}
+        </Text>
+      </Paragraph>
+      <Button type="primary" className="user-profile__details-cta">
+        Disconnect Stripe Account
+      </Button>
+      <Paragraph>
+        By disconnecting, you won't be able to receive{" "}
+        <Text strong>any further payments</Text>. This will prevent users from
+        booking listings that you might have already created
+      </Paragraph>
+    </Fragment>
   ) : (
     <Fragment>
       <Paragraph>
