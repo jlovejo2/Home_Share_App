@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -22,13 +22,19 @@ interface Props {
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
-const { Item } = Form;
 
 export const Host = ({ viewer }: Props) => {
+  // const [form] = Form.useForm();
   const [imageLoading, setImageLoading] = useState(false);
   const [imageBase64Value, setImageBase64Value] = useState<string | null>(null);
 
-  const handleFormSubmit = () => {};
+  const handleHostListing = (values: {}) => {
+    console.log("values: ", values);
+
+    // const values = form.validateFields();
+
+    // console.log(evt);
+  };
 
   const handleImageUpload = (info: UploadChangeParam) => {
     const { file } = info;
@@ -67,7 +73,7 @@ export const Host = ({ viewer }: Props) => {
 
   return (
     <Content className="host-content">
-      <Form layout="vertical">
+      <Form layout="vertical" onFinish={handleHostListing}>
         <div className="host__form-header">
           <Title level={3} className="host__form-title">
             Hi! Let's get start listing your place.
@@ -77,7 +83,11 @@ export const Host = ({ viewer }: Props) => {
             about your listing.
           </Text>
         </div>
-        <Item label="Home Type">
+        <Form.Item
+          label="Home Type"
+          name="type"
+          rules={[{ required: true, message: "Please select a home type!" }]}
+        >
           <Radio.Group>
             <Radio.Button value={ListingType.APARTMENT}>
               <Icon type="bank" style={{ color: iconColor }} />
@@ -88,32 +98,107 @@ export const Host = ({ viewer }: Props) => {
               <span>House</span>
             </Radio.Button>
           </Radio.Group>
-        </Item>
-        <Item label="Title" extra="Max character count of 45">
+        </Form.Item>
+        <Form.Item
+          label="Max # of Guests"
+          name="numOfGuest"
+          rules={[
+            {
+              required: true,
+              message: "Please enter a max number of guests!",
+            },
+          ]}
+        >
+          <InputNumber min={1} placeholder="4" />
+        </Form.Item>
+        <Form.Item
+          label="Title"
+          name="title"
+          extra="Max character count of 45"
+          rules={[
+            {
+              required: true,
+              message: "Please enter a title for your listing.",
+            },
+          ]}
+        >
           <Input placeholder="The iconic and luxurious Bel-Air mansion" />
-        </Item>
-        <Item label="Description of listing" extra="Max character count of 45">
+        </Form.Item>
+        <Form.Item
+          label="Description of listing"
+          name="description"
+          extra="Max character count of 45"
+          rules={[
+            {
+              required: true,
+              message: "Please enter a description for your listing.",
+            },
+          ]}
+        >
           <Input.TextArea
             rows={3}
             maxLength={400}
             placeholder="Modern, clean, and iconic home of the Fresh Prince.  Sits in the heart of Bel-Air, Los Angeles."
           />
-        </Item>
-        <Item label="Address">
+        </Form.Item>
+        <Form.Item
+          label="Address"
+          name="address"
+          rules={[
+            {
+              required: true,
+              message: "Please enter an address for your listing.",
+            },
+          ]}
+        >
           <Input placeholder="251 N Bristol Ave" />
-        </Item>
-        <Item label="City/Town">
+        </Form.Item>
+        <Form.Item
+          label="City/Town"
+          name="city"
+          rules={[
+            {
+              required: true,
+              message: "Please enter a City (or Town) for your listing.",
+            },
+          ]}
+        >
           <Input placeholder="Los Angeles" />
-        </Item>
-        <Item label="State/Province">
+        </Form.Item>
+        <Form.Item
+          label="State/Province"
+          name="state"
+          rules={[
+            {
+              required: true,
+              message: "Please enter a State (or Province) for your listing.",
+            },
+          ]}
+        >
           <Input placeholder="California" />
-        </Item>
-        <Item label="Zip/Postal Code">
+        </Form.Item>
+        <Form.Item
+          label="Zip/Postal Code"
+          name="zip"
+          rules={[
+            {
+              required: true,
+              message: "Please enter a Zip(or Postal) code for your listing.",
+            },
+          ]}
+        >
           <Input placeholder="Please enter a zip code for your listing" />
-        </Item>
-        <Item
+        </Form.Item>
+        <Form.Item
           label="Image"
+          name="image"
           extra="Images have to be under 1MB in size and of type JPG or PNG"
+          rules={[
+            {
+              required: false,
+              message: "Please enter an image for your listing.",
+            },
+          ]}
         >
           <div className="host__form-image-upload">
             <Upload
@@ -134,15 +219,25 @@ export const Host = ({ viewer }: Props) => {
               )}
             </Upload>
           </div>
-        </Item>
-        <Item label="Price" extra="All prices in $USD/day">
+        </Form.Item>
+        <Form.Item
+          label="Price"
+          name="price"
+          extra="All prices in $USD/day"
+          rules={[
+            {
+              required: true,
+              message: "Please enter a price for your listing.",
+            },
+          ]}
+        >
           <InputNumber min={0} placeholder="120" />
-        </Item>
-        <Item>
-          <Button type="primary" onChange={handleFormSubmit}>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
             Submit
           </Button>
-        </Item>
+        </Form.Item>
       </Form>
     </Content>
   );
@@ -178,3 +273,7 @@ const getBase64Value = (
     callback(reader.result as string);
   };
 };
+
+// export const WrappedHost = Form.create<Props & FormComponentProps>({
+//   name: "host_form",
+// })(Host);
