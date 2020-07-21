@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Layout, Typography } from "antd";
+import { Form, Input, Layout, Typography } from "antd";
 import { Viewer } from "../../lib/types";
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
+const { Item } = Form;
 
 export const Host = ({ viewer }: Props) => {
   if (!viewer.id || !viewer.hasWallet) {
@@ -32,15 +33,39 @@ export const Host = ({ viewer }: Props) => {
 
   return (
     <Content className="host-content">
-      <div className="host__form-header">
-        <Title level={3} className="host__form-title">
-          Hi! Let's get start listing your place.
-        </Title>
-        <Text type="secondary">
-          In this form, we'll collect some basic and additional information
-          about your listing.
-        </Text>
-      </div>
+      <Form layout="vertical">
+        <div className="host__form-header">
+          <Title level={3} className="host__form-title">
+            Hi! Let's get start listing your place.
+          </Title>
+          <Text type="secondary">
+            In this form, we'll collect some basic and additional information
+            about your listing.
+          </Text>
+        </div>
+        <Item label="Title" extra="Max character count of 45">
+          <Input placeholder="The iconic and luxurious Bel-Air mansion" />
+        </Item>
+        <Item label="Description of listing" extra="Max character count of 45">
+          <Input.TextArea
+            rows={3}
+            maxLength={400}
+            placeholder="Modern, clean, and iconic home of the Fresh Prince.  Sits in the heart of Bel-Air, Los Angeles."
+          />
+        </Item>
+        <Item label="Address">
+          <Input placeholder="251 N Bristol Ave" />
+        </Item>
+        <Item label="City/Town">
+          <Input placeholder="Los Angeles" />
+        </Item>
+        <Item label="State/Province">
+          <Input placeholder="California" />
+        </Item>
+        <Item label="Zip/Postal Code">
+          <Input placeholder="Please enter a zip code for your listing" />
+        </Item>
+      </Form>
     </Content>
   );
 };
