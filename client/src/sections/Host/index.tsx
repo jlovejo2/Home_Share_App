@@ -25,7 +25,7 @@ import {
   displaySuccessNotification,
 } from "../../lib/utils";
 import { UploadChangeParam } from "antd/lib/upload";
-import { Store } from "antd/lib/form/interface";
+// import { Store } from "antd/lib/form/interface";
 
 interface Props {
   viewer: Viewer;
@@ -53,7 +53,7 @@ export const Host = ({ viewer }: Props) => {
     },
   });
 
-  const handleHostListing = (values: Store) => {
+  const handleHostListing = (values: any) => {
     console.log("success: ", values);
 
     const fullAddress = `${values.address}, ${values.city}, ${values.state}, ${values.postalCode}`;
@@ -65,9 +65,11 @@ export const Host = ({ viewer }: Props) => {
       price: values.price * 100,
     };
 
-    // delete input.city;
-    // delete input.state;
-    // delete input.postCode;
+    delete input.city;
+    delete input.state;
+    delete input.zip;
+
+    console.log(input);
 
     hostListing({
       variables: {
@@ -76,7 +78,7 @@ export const Host = ({ viewer }: Props) => {
     });
   };
 
-  const handleHostListingFormFail = (errorInfo: Store) => {
+  const handleHostListingFormFail = (errorInfo: any) => {
     console.log("error: ", errorInfo);
     displayErrorMessage("Please fill in required fields.");
     return;
@@ -132,7 +134,7 @@ export const Host = ({ viewer }: Props) => {
   }
 
   if (data && data.hostListing) {
-    return <Redirect to={`/lsting/${data.hostListing.id}`} />;
+    return <Redirect to={`/listing/${data.hostListing.id}`} />;
   }
 
   return (
@@ -169,7 +171,7 @@ export const Host = ({ viewer }: Props) => {
         </Form.Item>
         <Form.Item
           label="Max # of Guests"
-          name="numOfGuest"
+          name="numOfGuests"
           rules={[
             {
               required: true,
