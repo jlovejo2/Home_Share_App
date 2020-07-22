@@ -47,7 +47,7 @@ export const ListingCreateBooking = ({
   };
 
   const viewerIsHost = viewer.id === host.id;
-  const checkInInputDisabled = !viewer.id || viewerIsHost;
+  const checkInInputDisabled = !viewer.id || viewerIsHost || !host.hasWallet;
   const checkOutInputDisabled = checkInInputDisabled || !checkInDate;
   const buttonDisabled = checkInInputDisabled || !checkInDate || !checkOutDate;
 
@@ -56,7 +56,11 @@ export const ListingCreateBooking = ({
     buttonMessage = "You have to be signed in to book a listing!";
   } else if (viewerIsHost) {
     buttonMessage = "You can't book your own listing!";
+  } else if (!host.hasWallet) {
+    buttonMessage =
+      "The host has disconnected from stripe.  So you are unable to book this listing. ";
   }
+
   return (
     <div className="listing-booking">
       <Card className="listing-booking__card">
