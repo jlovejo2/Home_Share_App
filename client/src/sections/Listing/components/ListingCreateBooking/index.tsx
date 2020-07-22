@@ -3,7 +3,7 @@ import { Card, Button, DatePicker, Divider, Typography } from "antd";
 import moment, { Moment } from "moment";
 import { displayErrorMessage, formatListingPrice } from "../../../../lib/utils";
 
-const { Paragraph, Title } = Typography;
+const { Paragraph, Title, Text } = Typography;
 
 interface Props {
   price: number;
@@ -42,6 +42,8 @@ export const ListingCreateBooking = ({
 
   const checkOutInputDisabled = !checkInDate;
   const buttonDisabled = !checkInDate || !checkOutDate;
+
+  let buttonMessage = "You won't be charged yet";
 
   return (
     <div className="listing-booking">
@@ -86,6 +88,9 @@ export const ListingCreateBooking = ({
         >
           Request to book!
         </Button>
+        <Text type="secondary" mark>
+          {buttonMessage}
+        </Text>
       </Card>
     </div>
   );
