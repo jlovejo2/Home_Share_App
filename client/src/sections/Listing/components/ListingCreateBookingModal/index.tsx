@@ -23,8 +23,8 @@ export const ListingCreateBookingModal = ({
 }: Props) => {
   const daysBooked = checkOutDate.diff(checkInDate, "days") + 1;
   const listingPrice = price * daysBooked;
-  const tinyHouseFee = 0.05 * listingPrice;
-  const totalPrice = listingPrice + tinyHouseFee;
+  //   const tinyHouseFee = 0.05 * listingPrice;
+  //   const totalPrice = listingPrice + tinyHouseFee;
 
   return (
     <Modal
@@ -62,12 +62,15 @@ export const ListingCreateBookingModal = ({
             {formatListingPrice(price, false)} * {daysBooked} days ={" "}
             <Text strong>{formatListingPrice(listingPrice, false)}</Text>
           </Paragraph>
-          <Paragraph>
+          {/*<Paragraph>
             Tinyhouse Fee <sub>~ 5%</sub> ={" "}
             <Text strong>{formatListingPrice(tinyHouseFee)}</Text>
-          </Paragraph>
-          <Paragraph>
-            Total = <Text mark>{formatListingPrice(totalPrice)}</Text>
+          </Paragraph>*/}
+          <Paragraph className="listing-booking-modal__charge-summary-total">
+            Total ={" "}
+            <Text mark>
+              {formatListingPrice(/*totalPrice*/ listingPrice, false)}
+            </Text>
           </Paragraph>
         </div>
 
