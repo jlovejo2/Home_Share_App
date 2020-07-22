@@ -3,11 +3,13 @@ import { Card, Button, DatePicker, Divider, Typography } from "antd";
 import moment, { Moment } from "moment";
 import { displayErrorMessage, formatListingPrice } from "../../../../lib/utils";
 import { Viewer } from "../../../../lib/types";
+import { Listing as ListingData } from "../../../../lib/graphql/queries/Listing/__generated__/Listing";
 
 const { Paragraph, Title, Text } = Typography;
 
 interface Props {
   viewer: Viewer;
+  host: ListingData["listing"]["host"];
   price: number;
   checkInDate: Moment | null;
   checkOutDate: Moment | null;
@@ -16,6 +18,7 @@ interface Props {
 }
 export const ListingCreateBooking = ({
   viewer,
+  host,
   price,
   checkInDate,
   checkOutDate,
@@ -43,13 +46,16 @@ export const ListingCreateBooking = ({
     }
   };
 
-  const checkInInputDisabled = !viewer.id;
+  const viewerIsHost = viewer.id === host.id;
+  const checkInInputDisabled = !viewer.id || viewerIsHost;
   const checkOutInputDisabled = checkInInputDisabled || !checkInDate;
   const buttonDisabled = checkInInputDisabled || !checkInDate || !checkOutDate;
 
   let buttonMessage = "You won't be charged yet";
   if (!viewer.id) {
     buttonMessage = "You have to be signed in to book a listing!";
+  } else if (viewerIsHost) {
+    buttonMessage = "You can't book your own listing!";
   }
   return (
     <div className="listing-booking">
