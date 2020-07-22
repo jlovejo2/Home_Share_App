@@ -119,6 +119,18 @@ export const Host = ({ viewer }: Props) => {
     );
   }
 
+  if (loading) {
+    return (
+      <Content className="host-content">
+        <div className="host__form-header">
+          <Title level={3} className="host__form-title">
+            <Text type="secondary">We're creating your listing now.</Text>
+          </Title>
+        </div>
+      </Content>
+    );
+  }
+
   return (
     <Content className="host-content">
       <Form
