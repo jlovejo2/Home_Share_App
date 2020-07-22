@@ -4,6 +4,7 @@ import moment, { Moment } from "moment";
 import { displayErrorMessage, formatListingPrice } from "../../../../lib/utils";
 import { Viewer } from "../../../../lib/types";
 import { Listing as ListingData } from "../../../../lib/graphql/queries/Listing/__generated__/Listing";
+import { BookingsIndex } from "./types";
 
 const { Paragraph, Title, Text } = Typography;
 
@@ -11,25 +12,42 @@ interface Props {
   viewer: Viewer;
   host: ListingData["listing"]["host"];
   price: number;
+  bookingsIndex: ListingData["listing"]["bookingsIndex"];
   checkInDate: Moment | null;
   checkOutDate: Moment | null;
   setCheckInDate: (checkInDate: Moment | null) => void;
   setCheckOutDate: (checkOutDate: Moment | null) => void;
 }
+
 export const ListingCreateBooking = ({
   viewer,
   host,
   price,
+  bookingsIndex,
   checkInDate,
   checkOutDate,
   setCheckInDate,
   setCheckOutDate,
 }: Props) => {
+  const bookingsIndexJSON: BookingsIndex = JSON.parse(bookingsIndex);
+
+  const dateIsBooked = (currentDate: Moment) => {
+    const year = moment(currentDate).year();
+    const month = moment(currentDate).month();
+    const day = moment(currentDate).date();
+
+    if (bookingsIndexJSON[year] && bookingsIndexJSON[year][month]) {
+      return Boolean(bookingsIndexJSON[year][month][day]);
+    } else {
+      return false;
+    }
+  };
+
   const disabledDate = (currentDate?: Moment) => {
     if (currentDate) {
       const dateIsBeforeEndOfDay = currentDate.isBefore(moment().endOf("day"));
 
-      return dateIsBeforeEndOfDay;
+      return dateIsBeforeEndOfDay || dateIsBooked(currentDate);
     } else {
       return false;
     }
