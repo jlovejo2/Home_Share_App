@@ -60,8 +60,29 @@ export const ListingCreateBooking = ({
           `You can't book date of check out to be prior to check in.`
         );
       }
-      setCheckOutDate(selectedCheckOutDate);
+
+      let dateCursor = checkInDate;
+
+      while (moment(dateCursor).isBefore(selectedCheckOutDate, "days")) {
+        dateCursor = moment(dateCursor).add(1, "days");
+
+        const year = moment(dateCursor).year();
+        const month = moment(dateCursor).month();
+        const day = moment(dateCursor).date();
+
+        if (
+          bookingsIndexJSON[year] &&
+          bookingsIndexJSON[year][month] &&
+          bookingsIndexJSON[year][month][day]
+        ) {
+          return displayErrorMessage(
+            "Can't book a period of time that overlaps existing bookings.  Please try again."
+          );
+        }
+      }
     }
+
+    setCheckOutDate(selectedCheckOutDate);
   };
 
   const viewerIsHost = viewer.id === host.id;
