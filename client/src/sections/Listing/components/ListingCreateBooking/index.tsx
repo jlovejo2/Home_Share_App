@@ -2,10 +2,12 @@ import React from "react";
 import { Card, Button, DatePicker, Divider, Typography } from "antd";
 import moment, { Moment } from "moment";
 import { displayErrorMessage, formatListingPrice } from "../../../../lib/utils";
+import { Viewer } from "../../../../lib/types";
 
 const { Paragraph, Title, Text } = Typography;
 
 interface Props {
+  viewer: Viewer;
   price: number;
   checkInDate: Moment | null;
   checkOutDate: Moment | null;
@@ -13,6 +15,7 @@ interface Props {
   setCheckOutDate: (checkOutDate: Moment | null) => void;
 }
 export const ListingCreateBooking = ({
+  viewer,
   price,
   checkInDate,
   checkOutDate,
