@@ -1,10 +1,43 @@
 import { IResolvers } from "apollo-server-express";
 import { Request } from "express";
 import { ObjectId } from "mongodb";
-import { Database, Listing, Booking } from "../../../lib/types";
+import { Database, Listing, Booking, BookingsIndex } from "../../../lib/types";
 import { CreateBookingArgs } from "./types";
 import { authorize } from "../../../lib/utils";
 import { Stripe } from "../../../lib/api";
+
+const resolveBookingsIndex = (
+  bookingsIndex: BookingsIndex,
+  checkInDate: string,
+  checkOutDate: string
+): BookingsIndex => {
+  let dateCursor = new Date(checkInDate);
+  let checkOut = new Date(checkOutDate);
+  const newBookingsIndex: BookingsIndex = { ...bookingsIndex };
+
+  //executes code over and over given a valid boolean condition
+  while (dateCursor <= checkOut) {
+    const y = dateCursor.getUTCFullYear(); //2019 universal time
+    const m = dateCursor.getUTCMonth(); // 0
+    const d = dateCursor.getUTCDate(); // 1
+
+    if (!newBookingsIndex[y]) {
+      newBookingsIndex[y] = {};
+    }
+    if (!newBookingsIndex[y][m]) {
+      newBookingsIndex[y][m] = {};
+    }
+    if (!newBookingsIndex[y][m][d]) {
+      newBookingsIndex[y][m][d] = true;
+    } else {
+      throw new Error(
+        "selected dates can't overlap dates that have already been booked"
+      );
+    }
+
+    dateCursor = new Date(dateCursor.getTime() + 86400000);
+  }
+};
 
 export const bookingsResolver: IResolvers = {
   Booking: {
