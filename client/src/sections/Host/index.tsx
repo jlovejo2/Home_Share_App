@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/react-hooks";
+import { HOST_LISTING } from "../../lib/graphql/mutations";
+import {
+  HostListing as HostListingData,
+  HostListingVariables,
+} from "../../lib/graphql/mutations/HostListing/__generated__/HostListing";
 import {
   Button,
   Form,
@@ -13,7 +19,11 @@ import {
 import { Viewer } from "../../lib/types";
 import { ListingType } from "../../lib/graphql/globalTypes";
 import { Icon } from "@ant-design/compatible";
-import { iconColor, displayErrorMessage } from "../../lib/utils";
+import {
+  iconColor,
+  displayErrorMessage,
+  displaySuccessNotification,
+} from "../../lib/utils";
 import { UploadChangeParam } from "antd/lib/upload";
 import { Store } from "antd/lib/form/interface";
 
@@ -29,8 +39,41 @@ export const Host = ({ viewer }: Props) => {
   const [imageLoading, setImageLoading] = useState(false);
   const [imageBase64Value, setImageBase64Value] = useState<string | null>(null);
 
+  const [hostListing, { loading, data }] = useMutation<
+    HostListingData,
+    HostListingVariables
+  >(HOST_LISTING, {
+    onCompleted: () => {
+      displaySuccessNotification("You've successfully created your listing!");
+    },
+    onError: () => {
+      displayErrorMessage(
+        "Sorry, we weren't able to create your listing.  Please try again later."
+      );
+    },
+  });
+
   const handleHostListing = (values: Store) => {
     console.log("success: ", values);
+
+    const fullAddress = `${values.address}, ${values.city}, ${values.state}, ${values.postalCode}`;
+
+    const input = {
+      ...values,
+      address: fullAddress,
+      image: imageBase64Value,
+      price: values.price * 100,
+    };
+
+    // delete input.city;
+    // delete input.state;
+    // delete input.postCode;
+
+    hostListing({
+      variables: {
+        input,
+      },
+    });
   };
 
   const handleHostListingFormFail = (errorInfo: Store) => {
@@ -51,6 +94,7 @@ export const Host = ({ viewer }: Props) => {
     if (file.status === "done" && file.originFileObj) {
       getBase64Value(file.originFileObj, (imageBase64Value) => {
         setImageBase64Value(imageBase64Value);
+        console.log(imageBase64Value);
         setImageLoading(false);
       });
     }
