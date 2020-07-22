@@ -70,7 +70,7 @@ export const MenuItems = ({ viewer, setViewer }: Props) => {
       <Item key="/host">
         <Link to="/host">
           <Icon type="home" />
-          Home
+          Host
         </Link>
       </Item>
       {subMenuLogin}
