@@ -96,12 +96,16 @@ export const Listing = ({
     />
   ) : null;
 
-  const listingCreateBookingModalElement = (
-    <ListingCreateBookingModal
-      modalVisible={modalVisible}
-      setModalVisible={setModalVisible}
-    />
-  );
+  const listingCreateBookingModalElement =
+    listing && checkOutDate && checkInDate ? (
+      <ListingCreateBookingModal
+        price={listing.price}
+        checkInDate={checkInDate}
+        checkOutDate={checkOutDate}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+    ) : null;
 
   return (
     <Content className="listing">
