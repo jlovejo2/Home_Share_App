@@ -16,4 +16,9 @@ export const bookingsResolver: IResolvers = {
       });
     },
   },
+  Mutation: {
+    createBooking: () => {
+      return "Mutation.creaBooking";
+    },
+  },
 };
