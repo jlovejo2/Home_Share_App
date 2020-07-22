@@ -56,7 +56,7 @@ export const Host = ({ viewer }: Props) => {
   const handleHostListing = (values: any) => {
     console.log("success: ", values);
 
-    const fullAddress = `${values.address}, ${values.city}, ${values.state}, ${values.postalCode}`;
+    const fullAddress = `${values.address}, ${values.city}, ${values.state}, ${values.zip}`;
 
     const input = {
       ...values,
