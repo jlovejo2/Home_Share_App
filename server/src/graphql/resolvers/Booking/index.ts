@@ -6,6 +6,7 @@ import { CreateBookingArgs } from "./types";
 import { authorize } from "../../../lib/utils";
 import { Stripe } from "../../../lib/api";
 
+//could add server-side validation for booking things multiple years apart
 const resolveBookingsIndex = (
   bookingsIndex: BookingsIndex,
   checkInDate: string,
@@ -37,6 +38,8 @@ const resolveBookingsIndex = (
 
     dateCursor = new Date(dateCursor.getTime() + 86400000);
   }
+
+  return newBookingsIndex;
 };
 
 export const bookingsResolver: IResolvers = {
@@ -52,6 +55,13 @@ export const bookingsResolver: IResolvers = {
       return db.listings.findOne({
         _id: booking.listing,
       });
+    },
+    tenant: (
+      booking: Booking,
+      _args: {},
+      { db }: { db: Database; req: Request }
+    ) => {
+      return db.users.findOne({ _id: booking.tenant });
     },
   },
   Mutation: {
