@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 import { HOST_LISTING } from "../../lib/graphql/mutations";
 import {
@@ -129,6 +129,10 @@ export const Host = ({ viewer }: Props) => {
         </div>
       </Content>
     );
+  }
+
+  if (data && data.hostListing) {
+    return <Redirect to={`/lsting/${data.hostListing.id}`} />;
   }
 
   return (
