@@ -36,10 +36,12 @@ export const Host = ({ viewer }: Props) => {
   const handleHostListingFormFail = (errorInfo: Store) => {
     console.log("error: ", errorInfo);
     displayErrorMessage("Please fill in required fields.");
+    return;
   };
 
   const handleImageUpload = (info: UploadChangeParam) => {
     const { file } = info;
+    console.log(file);
 
     if (file.status === "uploading") {
       setImageLoading(true);
