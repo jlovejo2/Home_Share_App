@@ -43,11 +43,14 @@ export const ListingCreateBooking = ({
     }
   };
 
-  const checkOutInputDisabled = !checkInDate;
-  const buttonDisabled = !checkInDate || !checkOutDate;
+  const checkInInputDisabled = !viewer.id;
+  const checkOutInputDisabled = checkInInputDisabled || !checkInDate;
+  const buttonDisabled = checkInInputDisabled || !checkInDate || !checkOutDate;
 
   let buttonMessage = "You won't be charged yet";
-
+  if (!viewer.id) {
+    buttonMessage = "You have to be signed in to book a listing!";
+  }
   return (
     <div className="listing-booking">
       <Card className="listing-booking__card">
@@ -66,6 +69,7 @@ export const ListingCreateBooking = ({
               onChange={(dateValue) => setCheckInDate(dateValue)}
               showToday={false}
               format={"YYYY/MM/DD"}
+              disabled={checkInInputDisabled}
               disabledDate={disabledDate}
               onOpenChange={() => setCheckOutDate(null)}
             />
