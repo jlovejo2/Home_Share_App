@@ -46,7 +46,21 @@ export const ListingCreateBookingModal = ({
   const [createBooking, { loading }] = useMutation<
     CreateBookingData,
     CreateBookingVariables
-  >(CREATE_BOOKING);
+  >(CREATE_BOOKING, {
+    onCompleted: () => {
+      clearBookingData();
+      displaySuccessNotification(
+        "You've successfully booked the listing!",
+        "Booking history can always be found in your User page."
+      );
+      handleListingRefetch();
+    },
+    onError: () => {
+      displayErrorMessage(
+        "Sorry we weren't able to successfuly book the listings.  PLease try again later."
+      );
+    },
+  });
 
   const daysBooked = checkOutDate.diff(checkInDate, "days") + 1;
   const listingPrice = price * daysBooked;
@@ -144,6 +158,7 @@ export const ListingCreateBookingModal = ({
             size="large"
             className="listing-booking-modal__cta"
             onClick={handleCreateBooking}
+            loading={loading}
           >
             Book
           </Button>
