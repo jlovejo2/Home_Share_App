@@ -1,4 +1,5 @@
 import React from "react";
+import { useMutation } from "@apollo/react-hooks";
 import {
   CardElement,
   injectStripe,
@@ -7,26 +8,46 @@ import {
 import { Modal, Button, Divider, Typography } from "antd";
 import { Icon } from "@ant-design/compatible";
 import moment, { Moment } from "moment";
-import { formatListingPrice } from "../../../../lib/utils";
+import { CREATE_BOOKING } from "../../../../lib/graphql/mutations";
+import {
+  CreateBooking as CreateBookingData,
+  CreateBookingVariables,
+} from "../../../../lib/graphql/mutations/CreateBooking/__generated__/CreateBooking";
+import {
+  formatListingPrice,
+  displayErrorMessage,
+  displaySuccessNotification,
+} from "../../../../lib/utils";
 
 interface Props {
+  id: string;
   price: number;
   checkInDate: Moment;
   checkOutDate: Moment;
   modalVisible: boolean;
   setModalVisible: (modalVisible: boolean) => void;
+  clearBookingData: () => void;
+  handleListingRefetch: () => Promise<void>;
 }
 
 const { Paragraph, Text, Title } = Typography;
 
 export const ListingCreateBookingModal = ({
+  id,
   price,
   checkInDate,
   checkOutDate,
   modalVisible,
   setModalVisible,
+  clearBookingData,
+  handleListingRefetch,
   stripe,
 }: Props & ReactStripeElements.InjectedStripeProps) => {
+  const [createBooking, { loading }] = useMutation<
+    CreateBookingData,
+    CreateBookingVariables
+  >(CREATE_BOOKING);
+
   const daysBooked = checkOutDate.diff(checkInDate, "days") + 1;
   const listingPrice = price * daysBooked;
   //   const tinyHouseFee = 0.05 * listingPrice;
@@ -34,14 +55,32 @@ export const ListingCreateBookingModal = ({
 
   const handleCreateBooking = async () => {
     if (!stripe) {
-      return;
+      return displayErrorMessage(
+        "Sorry we weren't able to connect with Stripe."
+      );
     }
 
-    let { token } = await stripe.createToken();
+    let { token: stripeToken, error } = await stripe.createToken();
 
-    const stripeToken = token;
-
-    const stripeSource = stripeToken.id;
+    if (stripeToken) {
+      createBooking({
+        variables: {
+          input: {
+            id,
+            source: stripeToken.id,
+            checkIn: moment(checkInDate).format("YYYY-MM-DD"),
+            checkOut: moment(checkOutDate).format("YYYY-MM-DD"),
+          },
+        },
+      });
+    } else {
+      displayErrorMessage(
+        error && error.message
+          ? error.message
+          : "Sorry we weren't able to book the listing.  Please try again later."
+      );
+    }
+    // const stripeSource = stripeToken.id;
 
     console.log(stripeToken);
   };
