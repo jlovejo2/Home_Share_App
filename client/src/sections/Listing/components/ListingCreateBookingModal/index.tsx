@@ -32,6 +32,20 @@ export const ListingCreateBookingModal = ({
   //   const tinyHouseFee = 0.05 * listingPrice;
   //   const totalPrice = listingPrice + tinyHouseFee;
 
+  const handleCreateBooking = async () => {
+    if (!stripe) {
+      return;
+    }
+
+    let { token } = await stripe.createToken();
+
+    const stripeToken = token;
+
+    const stripeSource = stripeToken.id;
+
+    console.log(stripeToken);
+  };
+
   return (
     <Modal
       visible={modalVisible}
@@ -90,6 +104,7 @@ export const ListingCreateBookingModal = ({
             type="primary"
             size="large"
             className="listing-booking-modal__cta"
+            onClick={handleCreateBooking}
           >
             Book
           </Button>
