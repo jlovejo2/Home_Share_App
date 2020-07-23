@@ -1,4 +1,9 @@
 import React from "react";
+import {
+  CardElement,
+  injectStripe,
+  ReactStripeElements,
+} from "react-stripe-elements";
 import { Modal, Button, Divider, Typography } from "antd";
 import { Icon } from "@ant-design/compatible";
 import moment, { Moment } from "moment";
@@ -20,7 +25,8 @@ export const ListingCreateBookingModal = ({
   checkOutDate,
   modalVisible,
   setModalVisible,
-}: Props) => {
+  stripe,
+}: Props & ReactStripeElements.InjectedStripeProps) => {
   const daysBooked = checkOutDate.diff(checkInDate, "days") + 1;
   const listingPrice = price * daysBooked;
   //   const tinyHouseFee = 0.05 * listingPrice;
@@ -76,6 +82,10 @@ export const ListingCreateBookingModal = ({
 
         <Divider />
         <div className="listing-booking-modal__stripe-card-section">
+          <CardElement
+            hidePostalCode
+            className="listing-booking-modal__stripe-card"
+          />
           <Button
             type="primary"
             size="large"
@@ -88,3 +98,7 @@ export const ListingCreateBookingModal = ({
     </Modal>
   );
 };
+
+export const WrappedListingCreateBookingModal = injectStripe(
+  ListingCreateBookingModal
+);
