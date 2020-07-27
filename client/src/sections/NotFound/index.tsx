@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import { Empty, Layout, Typography } from "antd";
 
 const { Content } = Layout;
@@ -10,16 +11,19 @@ export const NotFound = () => {
       <Empty
         description={
           <Fragment>
-            <Text className="not-found__desription-title">
+            <Text className="not-found__description-title">
               Uh oh! Something went wrong :(
             </Text>
-            <hr />
+
             <Text className="not-found__description-subtitle">
               The page you're looking for can't be found
             </Text>
           </Fragment>
         }
       />
+      <Link to="/" className="not-found__cta">
+        Go to home
+      </Link>
     </Content>
   );
 };
