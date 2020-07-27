@@ -6,6 +6,8 @@ import { CreateBookingArgs } from "./types";
 import { authorize } from "../../../lib/utils";
 import { Stripe } from "../../../lib/api";
 
+const millisecondsPerDay = 86400000;
+
 //could add server-side validation for booking things multiple years apart
 const resolveBookingsIndex = (
   bookingsIndex: BookingsIndex,
@@ -91,8 +93,24 @@ export const bookingsResolver: IResolvers = {
           throw new Error("viewer can't book own listing");
         }
         // check that checkOut is NOT before checkIn
+        const today = new Date();
         const checkInDate = new Date(checkIn);
         const checkOutDate = new Date(checkOut);
+
+        if (checkInDate.getTime() > today.getTime() * 90 * millisecondsPerDay) {
+          throw new Error(
+            "check in date can't be more than 90 days from today"
+          );
+        }
+
+        if (
+          checkOutDate.getTime() >
+          today.getTime() * 90 * millisecondsPerDay
+        ) {
+          throw new Error(
+            "check out date can't be more than 90 days from today"
+          );
+        }
 
         if (checkOutDate < checkInDate) {
           throw new Error("check out date can't be before check in date");
