@@ -8,6 +8,7 @@ import {
   UserVariables,
 } from "../../lib/graphql/queries/User/__generated__/User";
 import { PageSkeleton, ErrorBanner } from "../../lib/components";
+import { useScrollToTop } from "../../lib/hooks";
 import { Viewer } from "../../lib/types";
 import { UserBookings, UserListings, UserProfile } from "./components";
 
@@ -44,6 +45,8 @@ export const User = ({
       fetchPolicy: "cache-and-network",
     }
   );
+
+  useScrollToTop();
 
   const handleUserRefetch = async () => {
     refetch();

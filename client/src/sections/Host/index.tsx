@@ -16,6 +16,7 @@ import {
   Typography,
   Upload,
 } from "antd";
+import { useScrollToTop } from "../../lib/hooks";
 import { Viewer } from "../../lib/types";
 import { ListingType } from "../../lib/graphql/globalTypes";
 import { Icon } from "@ant-design/compatible";
@@ -52,6 +53,8 @@ export const Host = ({ viewer }: Props) => {
       );
     },
   });
+
+  useScrollToTop();
 
   const handleHostListing = (values: any) => {
     console.log("success: ", values);

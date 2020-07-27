@@ -3,6 +3,7 @@ import { Redirect } from "react-router";
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import { Card, Layout, Spin, Typography } from "antd";
 import { ErrorBanner } from "../../lib/components";
+import { useScrollToTop } from "../../lib/hooks";
 import { LOG_IN } from "../../lib/graphql/mutations";
 import { AUTH_URL } from "../../lib/graphql/queries";
 import {
@@ -45,6 +46,8 @@ export const Login = ({ setViewer }: Props) => {
 
   //useRef hook creates a mutable version of the provided parameter
   const logInRef = useRef(logIn);
+
+  useScrollToTop();
 
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code");

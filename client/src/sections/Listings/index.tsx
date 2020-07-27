@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { RouteComponentProps, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { Affix, Layout, List, Typography } from "antd";
+import { useScrollToTop } from "../../lib/hooks";
 import { ListingCard, ErrorBanner } from "../../lib/components";
 import { LISTINGS } from "../../lib/graphql/queries";
 import {
@@ -28,6 +29,8 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
   const locationRef = useRef(match.params.location);
   const [filter, setFilter] = useState(ListingsFilter.PRICE_LOW_TO_HIGH);
   const [page, setPage] = useState(1);
+
+  useScrollToTop();
 
   useEffect(() => {
     setPage(1);
