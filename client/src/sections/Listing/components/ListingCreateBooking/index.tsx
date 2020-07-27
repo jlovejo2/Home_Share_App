@@ -48,8 +48,15 @@ export const ListingCreateBooking = ({
   const disabledDate = (currentDate?: Moment) => {
     if (currentDate) {
       const dateIsBeforeEndOfDay = currentDate.isBefore(moment().endOf("day"));
+      const dateIsMoreThanThreeMonthsAhead = moment(currentDate).isAfter(
+        moment().endOf("day").add(90, "days")
+      );
 
-      return dateIsBeforeEndOfDay || dateIsBooked(currentDate);
+      return (
+        dateIsBeforeEndOfDay ||
+        dateIsMoreThanThreeMonthsAhead ||
+        dateIsBooked(currentDate)
+      );
     } else {
       return false;
     }
