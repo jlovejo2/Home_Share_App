@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, DatePicker, Divider, Typography } from "antd";
+import { Card, Button, DatePicker, Divider, Typography, Tooltip } from "antd";
 import moment, { Moment } from "moment";
 import { displayErrorMessage, formatListingPrice } from "../../../../lib/utils";
 import { Viewer } from "../../../../lib/types";
@@ -123,24 +123,64 @@ export const ListingCreateBooking = ({
           <div className="listing-booking__card-date-picker">
             <Paragraph strong>Check In</Paragraph>
             <DatePicker
-              value={checkInDate}
+              value={checkInDate ? checkInDate : undefined}
               onChange={(dateValue) => setCheckInDate(dateValue)}
               showToday={false}
               format={"YYYY/MM/DD"}
               disabled={checkInInputDisabled}
               disabledDate={disabledDate}
               onOpenChange={() => setCheckOutDate(null)}
+              renderExtraFooter={() => {
+                return (
+                  <div>
+                    <Text type="secondary" className="ant-calendar-footer-text">
+                      You can only book a listing within 90 days from today
+                    </Text>
+                  </div>
+                );
+              }}
             />
           </div>
           <div className="listing-booking__card-date-picker">
             <Paragraph strong>Check Out</Paragraph>
             <DatePicker
-              value={checkOutDate}
+              value={checkOutDate ? checkOutDate : undefined}
               onChange={(dateValue) => verifyAndSetCheckOutDate(dateValue)}
               showToday={false}
               format={"YYYY/MM/DD"}
               disabled={checkOutInputDisabled}
               disabledDate={disabledDate}
+              dateRender={(current) => {
+                if (
+                  moment(current).isSame(
+                    checkInDate ? checkInDate : undefined,
+                    "day"
+                  )
+                ) {
+                  return (
+                    <Tooltip title="Check in date">
+                      <div className="ant-picker-cell-inner">
+                        {current.date()}
+                      </div>
+                    </Tooltip>
+                  );
+                } else {
+                  return (
+                    <div className="ant-picker-cell-inner">
+                      {current.date()}
+                    </div>
+                  );
+                }
+              }}
+              renderExtraFooter={() => {
+                return (
+                  <div>
+                    <Text type="secondary" className="ant-calendar-footer-text">
+                      Check-out date cannot be before check-in date.
+                    </Text>
+                  </div>
+                );
+              }}
             />
           </div>
         </div>
