@@ -29,6 +29,8 @@ export const Home = ({ history }: RouteComponentProps) => {
         limit: PAGE_LIMIT,
         page: PAGE_NUMBER,
       },
+      //cache-and-network get the information from the cache but also make the request to network to update if the information has changed
+      fetchPolicy: "cache-and-network",
     }
   );
 
