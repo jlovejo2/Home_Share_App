@@ -21,7 +21,10 @@ export const NotFound = () => {
           </Fragment>
         }
       />
-      <Link to="/" className="not-found__cta">
+      <Link
+        to="/"
+        className="not-found__cta ant-btn ant-btn-primary ant-btn-large"
+      >
         Go to home
       </Link>
     </Content>
