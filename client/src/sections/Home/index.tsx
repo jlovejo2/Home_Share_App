@@ -7,6 +7,7 @@ import {
   ListingsVariables,
 } from "../../lib/graphql/queries/Listings/__generated__/Listings";
 import { Col, Row, Layout, Typography } from "antd";
+import { useScrollToTop } from "../../lib/hooks";
 import { displayErrorMessage } from "../../lib/utils";
 import { HomeHero, HomeListings, HomeListingsSkeleton } from "./components";
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
@@ -33,6 +34,8 @@ export const Home = ({ history }: RouteComponentProps) => {
       fetchPolicy: "cache-and-network",
     }
   );
+
+  useScrollToTop();
 
   const onSearch = (value: String) => {
     const trimmedValue = value.trim();
