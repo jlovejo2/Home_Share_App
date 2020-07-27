@@ -227,6 +227,14 @@ export const viewerResolvers: IResolvers = {
           );
         }
 
+        //placed in if statement because walletId type is undefined or a string.
+        if (viewer.walletId) {
+          const wallet = await Stripe.disconnect(viewer.walletId);
+          if (!wallet) {
+            throw new Error("stripe grant error");
+          }
+        }
+
         const updateRes = await db.users.findOneAndUpdate(
           { _id: viewer._id },
           { $unset: { walletId: "" } },
