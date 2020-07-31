@@ -1,0 +1,9 @@
+- Invoke a POST or GET HTTP method
+    - we'll use POST
+
+- Specify content of request as application.json
+    -GraphQL Documents passed as json
+
+- Reference URL of GraphQL Endpoint
+
+fetch() - native browser method to make HTTP requests
