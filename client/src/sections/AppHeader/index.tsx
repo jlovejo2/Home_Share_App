@@ -26,12 +26,13 @@ const { Search } = Input;
 export const AppHeader = withRouter(
   ({ viewer, setViewer, history }: Props & RouteComponentProps) => {
     const [search, setSearch] = useState("");
+    const { pathname } = useLocation<RouteComponentProps>();
 
     useEffect(() => {
       //react router obj location gives us url at any time
       //withRouter does this too with location and history
       //can't use match object because it is only route relative. Any only can use nearest route
-      const { pathname } = useLocation<RouteComponentProps>();
+
       const pathnameSubStrings = pathname.split("/");
 
       if (!pathname.includes("/listings")) {
@@ -43,7 +44,7 @@ export const AppHeader = withRouter(
         setSearch(pathnameSubStrings[2]);
         return;
       }
-    }, []);
+    }, [pathname]);
 
     const onSearch = (value: string) => {
       const trimmedValue = value.trim();
