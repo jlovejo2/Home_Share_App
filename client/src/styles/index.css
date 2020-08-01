@@ -156,15 +156,21 @@
   width: 100%;
 }
 .home-hero__search {
-  max-width: 600px;
+  max-width: 700px;
 }
 .home-hero__title.ant-typography {
   color: #1d226c;
 }
+
 .home-hero__search-input input {
   border: 1px solid #f0f1f2;
   box-shadow: 0 2px 4px rgba(29, 34, 108, 0.1);
 }
+
+.home-hero__search-input button {
+  background-color: #00008b;
+}
+
 .home-hero__cards {
   padding-top: 60px;
 }
