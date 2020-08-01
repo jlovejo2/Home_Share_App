@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { Layout, Col, Row } from "antd";
 import { USER } from "../../lib/graphql/queries";
@@ -18,7 +18,7 @@ interface Props {
 }
 
 interface MatchParams {
-  id: string;
+  slug: string;
 }
 
 const { Content } = Layout;
@@ -28,16 +28,18 @@ export const User = ({
   viewer,
   match,
   setViewer,
-}: Props & RouteComponentProps<MatchParams>) => {
+}: Props & RouteComponentProps) => {
   const [listingsPage, setListingsPage] = useState(1);
   const [bookingsPage, setBookingsPage] = useState(1);
+
+  const { slug } = useParams<MatchParams>();
 
   //useQuery hook is smart enough to run another query when any of the variables change
   const { data, loading, refetch, error } = useQuery<UserData, UserVariables>(
     USER,
     {
       variables: {
-        id: match.params.id,
+        id: slug,
         bookingsPage,
         listingsPage,
         limit: PAGE_LIMIT,
@@ -84,7 +86,7 @@ export const User = ({
   }
   const user = data ? data.user : null;
   console.log(user);
-  const viewerIsUser = viewer.id === match.params.id;
+  const viewerIsUser = viewer.id === slug;
 
   const userListings = user ? user.listings : null;
   const userBookings = user ? user.bookings : null;

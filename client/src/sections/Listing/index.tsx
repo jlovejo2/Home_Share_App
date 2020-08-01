@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { RouteComponentProps } from "react-router";
+import { useParams, RouteComponentProps } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { PageSkeleton, ErrorBanner } from "../../lib/components";
 import { Layout, Col, Row } from "antd";
