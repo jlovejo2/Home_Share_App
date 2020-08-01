@@ -53,6 +53,11 @@
 .app-header__menu-section {
   float: right;
 }
+
+.app-header__menu-section button {
+  background-color: #00008b;
+}
+
 .app-header-skeleton {
   display: flex;
   background: #fff;

@@ -68,7 +68,7 @@ export const AppHeader = withRouter(
             />
           </div>
         </div>
-        <div className="app=header__menu-section">
+        <div className="app-header__menu-section">
           <MenuItems viewer={viewer} setViewer={setViewer} />
         </div>
       </Header>
