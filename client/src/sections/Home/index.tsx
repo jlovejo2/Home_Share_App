@@ -71,10 +71,13 @@ export const Home = ({ history }: RouteComponentProps) => {
     >
       <HomeHero onSearch={onSearch} />
       <div className="home__cta-section">
-        <Title>Your guide for all things rental</Title>
+        <Title>
+          Find a home being shared by one our gracious hosts, book it, and relax
+        </Title>
         <Paragraph>
-          Helping you make your best decisions in renting your last minute
-          locations.
+          Our goal is to help you make the best decisions in booking your last
+          minute vacation locations. While also providing our hosts with the
+          tools to make you feel right at home during your stay.
         </Paragraph>
         <Link
           to="/listings/united%20states"
