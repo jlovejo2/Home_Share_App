@@ -13,7 +13,7 @@
 }
 .app-header {
   display: flex;
-  background: #fff;
+  background: rgb(255, 255, 255);
   box-shadow: 0 2px 8px #f0f1f2;
   padding: 0;
 }

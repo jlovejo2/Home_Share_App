@@ -149,11 +149,11 @@ export const Host = ({ viewer }: Props) => {
       >
         <div className="host__form-header">
           <Title level={3} className="host__form-title">
-            Hi! Let's get start listing your place.
+            Hi! Let's get started creating a listing.
           </Title>
           <Text type="secondary">
             In this form, we'll collect some basic and additional information
-            about your listing.
+            about your home.
           </Text>
         </div>
         <Form.Item
