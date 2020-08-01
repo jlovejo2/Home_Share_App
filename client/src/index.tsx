@@ -104,7 +104,7 @@ const App = () => {
             />
             <Route
               exact
-              path="/listing/:id"
+              path="/listing/:slug"
               render={(props) => (
                 <Elements>
                   <Listing {...props} viewer={viewer} />

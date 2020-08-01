@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import { useQuery } from "@apollo/react-hooks";
 import { PageSkeleton, ErrorBanner } from "../../lib/components";
@@ -19,7 +20,7 @@ import { Viewer } from "../../lib/types";
 import { useScrollToTop } from "../../lib/hooks";
 
 interface MatchParams {
-  id: string;
+  slug: string;
 }
 
 interface Props {
@@ -32,19 +33,21 @@ const { Content } = Layout;
 
 export const Listing = ({
   viewer,
-  match,
-}: Props & RouteComponentProps<MatchParams>) => {
+}: // match,
+Props & RouteComponentProps) => {
   const [bookingsPage, setBookingsPage] = useState(1);
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const { slug } = useParams<MatchParams>();
 
   const { data, loading, error, refetch } = useQuery<
     ListingData,
     ListingVariables
   >(LISTING, {
     variables: {
-      id: match.params.id,
+      id: slug,
       bookingsPage,
       limit: PAGE_LIMIT,
     },
