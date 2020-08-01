@@ -90,6 +90,11 @@
   border: 1px solid #f0f1f2;
   box-shadow: 0 2px 4px rgba(29, 34, 108, 0.1);
 }
+
+.ant-btn-primary {
+  background-color: #00008b;
+}
+
 .error-banner {
   position: fixed;
   width: 100%;
