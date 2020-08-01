@@ -45,6 +45,11 @@
   border: 1px solid #f0f1f2;
   box-shadow: 0 2px 4px rgba(29, 34, 108, 0.1);
 }
+
+.app-header__search-input button {
+  background-color: #00008b;
+}
+
 .app-header__menu-section {
   float: right;
 }
