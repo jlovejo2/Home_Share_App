@@ -100,7 +100,7 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
     ) : (
       <div>
         <Paragraph>
-          It appears that no listings have yet been created for{" "}
+          It appears there are no homes yet being shared in{" "}
           <Text mark>"{listingsRegion}"</Text>
         </Paragraph>
         <Paragraph>
