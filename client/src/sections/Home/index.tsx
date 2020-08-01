@@ -91,7 +91,7 @@ export const Home = ({ history }: RouteComponentProps) => {
 
       <div className="home__listings">
         <Title level={4} className="home__listings-title">
-          Listings of any kind
+          Vacations spots available all over the world!!
         </Title>
         <Row gutter={12}>
           <Col xs={24} sm={12}>
