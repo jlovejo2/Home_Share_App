@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteComponentProps, Link } from "react-router-dom";
+import { RouteComponentProps, Link, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { LISTINGS } from "../../lib/graphql/queries";
 import {
@@ -21,7 +21,9 @@ const { Paragraph, Title } = Typography;
 const PAGE_LIMIT = 4;
 const PAGE_NUMBER = 1;
 
-export const Home = ({ history }: RouteComponentProps) => {
+export const Home = () => {
+  const history = useHistory<RouteComponentProps>();
+
   const { data, loading } = useQuery<ListingsData, ListingsVariables>(
     LISTINGS,
     {
