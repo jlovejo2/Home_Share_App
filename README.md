@@ -5,7 +5,7 @@ This App is an app simulating a rental property booking app similar to VrBo and 
 This App uses graphql, apollo, and mongoDb on the back-end to create a server, api, and allow that api to be queried easily. Most of the client-side work is down by react with the aid of Ant-design as a framework.
 
 the link to github is shown below:
-TBD
+https://github.com/jlovejo2/Home_Share_App
 
 the link to the functional app is shown below:
 https://
@@ -34,21 +34,25 @@ As a User I either have a desire to make money renting out some property or I ju
 - This app has 7 pages: Home Page, Host Page, Listing Page, Listings Page, Login Page, 404 page, Profile Page,
 - Home page - is the start page. It shows some of the premium listings, with some images and button that will run some listing searches for the user when clicked on.
 - Host page - Allows the user to create a listing to host. This page is only accessible if the user has logged in and synced their stripe account.
-- Dashboard - allows the user to see all the classes they are signed up to be in
-- Search page - allows user to search the database of classes and request to join them
-- Classroom page - has an annoucement board that users can post on, with an assignments div that shows the assignments for the class
-- Gradebook page - allows the teacher, to add assignments and grades for those assignments to each student
-- Logout page - lets the user logout. Upon logging out they are assigned a new auth token that expires in 1 millisecond.
+- Listing page - Is the page that displays all the listing information to the user. This page has the interactivity that allows the user to book a lisitng.
+- Listings page - This page displays all the listings that are listed for the searched location.
+- Login page - This page allows the user to login into the website. The page itself has a button that will route the user to Google Oauth and allow them to login with their google account.
+- 404 page - This is a generic 404 page that will catch any route that doesn't exist for this site and let the user know the url was incorrect.
+- Profile page - This page displays all the info of the site specific to that user. It displays whether they have their Stripe account connected or disconnected, shows all the listings the user has created, and all the bookings they have made.
 
 ## How To Use
 
 See the layout of the app below.
 
-- The home page of the app has a little description explaining what the app can be used for. Other than that at the top of the screen without being a user one can search the classes that exist on the website. Can't join if you aren't a member though. Also there is a login button that will take you the login screen
+- The home page is shown by the two images below.
 
-!["Starting page of App"](/client/public/assets/images/readme/homePage.jpg)
+!["Starting page of App Image One"](/client/public/assets/images/readme/home_page_One.jpg)
 
-- If the user clicks on the login button the login dialog opens up and the user can login or click on the register link if they are a new member. The register link will open up the register dialog. There are two types of user either a teacher or student. Teacher has the ability to create courses as well as join them, while a student can only join them
+- This first shows the upper half the page consisting of the header and then four images that when clicked will automatically run a search for listings in the city shown by the images. The app header is within the green box and consists of a clickable logo(will take user back to home page), a search bar that will search for lisitings based on user's query, a host button which allows a logged in user to create a listing, and then a conditional button that allows user to sign in. Once user is signed in the conditional button will switch to a dropwdown menu that will either allow user to navigate to profile page or sign out.
+
+!["Starting page of App Image Two"](/client/public/assets/images/readme/home_page_Two.jpg)
+
+- The second image(above) shows the rest of the home page for the Home Share App. The first section displays a description explaining what the Home Share Apps goal is and has a button that allows that when clicked will run a search for all listings in the United States. The next section lists the Premium Listings(or four most expensive listings) currently on the App.
 
 |                          Login Dialog                           |                            Register Dialog                            |
 | :-------------------------------------------------------------: | :-------------------------------------------------------------------: |
@@ -80,12 +84,9 @@ See the layout of the app below.
 
 ## Guest Login Info
 
-- Guest Student
-  - user email: guestStudent@gmail.com
-  - password: student
-- Guest Teacher
-  - user email: guestTeacher@gmail.com
-  - password: teacher
+- Guest:
+  - email: codingGuestAcct.james.lovejoy2@gmail.com
+  - password: g3u5tAcct!
 
 ## Coding Languages Used
 

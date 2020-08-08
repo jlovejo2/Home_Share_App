@@ -320,7 +320,6 @@ const beforeImageUpload = (file: File) => {
   const fileIsValidImage =
     file.type === "image/jpeg" || file.type === "image/png";
   const fileIsValidSize = file.size / 1024 / 1024 < 1;
-
   if (!fileIsValidImage) {
     displayErrorMessage("You're only able to upload valid JPG or PNG files.");
     return false;
@@ -350,3 +349,5 @@ const getBase64Value = (
 // export const WrappedHost = Form.create<Props & FormComponentProps>({
 //   name: "host_form",
 // })(Host);
+
+// used to mock an image upload "https://www.mocky.io/v2/5cc8019d300000980a055e76"
