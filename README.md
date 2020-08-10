@@ -44,42 +44,28 @@ As a User I either have a desire to make money renting out some property or I ju
 
 See the layout of the app below.
 
-- The home page is descsribed by the two images below.
+- The home page is described by the two images below.
+  | Starting page of App Top Half | Start page of App Bottom Half |
+  | :---------------------------: | :-------------------------------------: |
+  | !["Starting page of App Image One"](/client/public/assets/images/readme/home_page_One.jpg)|["Starting page of App Image Two"](/client/public/assets/images/readme/home_page_Two.png)|
+  | This first shows the upper half the page consisting of the header and then four images that when clicked will automatically run a search for listings in the city shown by the images. The app header is within the green box and consists of a clickable logo(will take user back to home page), a search bar that will search for lisitings based on user's query, a host button which allows a logged in user to create a listing, and then a conditional button that allows user to sign in. Once user is signed in the conditional button will switch to a dropwdown menu that will either allow user to navigate to profile page or sign out. | The second image(above) shows the rest of the home page for the Home Share App. The first section displays a description explaining what the Home Share Apps goal is and has a button that allows that when clicked will run a search for all listings in the United States. The next section lists the Premium Listings(or four most expensive listings) currently on the App. |
 
-  |                                                                                                                                                                                                                                                                                                            Starting page of App Top Half                                                                                                                                                                                                                                                                                                            |
-  | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-  |                                                                                                                                                                                                                                                                             !["Starting page of App Image One"](/client/public/assets/images/readme/home_page_One.jpg)                                                                                                                                                                                                                                                                              |
-  | This first shows the upper half the page consisting of the header and then four images that when clicked will automatically run a search for listings in the city shown by the images. The app header is within the green box and consists of a clickable logo(will take user back to home page), a search bar that will search for lisitings based on user's query, a host button which allows a logged in user to create a listing, and then a conditional button that allows user to sign in. Once user is signed in the conditional button will switch to a dropwdown menu that will either allow user to navigate to profile page or sign out. |
-
-|                                                                                                                                                                          Start page of App Bottom Half                                                                                                                                                                          |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                                                                                           !["Starting page of App Image Two"](/client/public/assets/images/readme/home_page_Two.png)                                                                                                                                            |
-| The second image(above) shows the rest of the home page for the Home Share App. The first section displays a description explaining what the Home Share Apps goal is and has a button that allows that when clicked will run a search for all listings in the United States. The next section lists the Premium Listings(or four most expensive listings) currently on the App. |
-
-- The Login Page is desscribed below.
-
-|                                                                                                                                                                                                                                                       Login Page                                                                                                                                                                                                                                                       |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                                                                                                                                                                             !["Login"](/client/public/assets/images/readme/Login_page.png)                                                                                                                                                                                                                             |
-| The above image shows the login page. User navigates here by clicking the "sign in" button. For this site google Oauth 2 was used to create and get user information. Therefore when the user clicks the "sign in with google" button they are navigated to Goole Oauth authorization page. Here they verify who they are using googles authorization api and then get navigated to their profile page for House Share App once House Share App receives verification from Google that they are who they say they are. |
+- The Login Page is described below.
+  | Login Page |
+  | :------------------: | !["Login"](/client/public/assets/images/readme/Login_page.png) |
+  | The above image shows the login page. User navigates here by clicking the "sign in" button. For this site google Oauth 2 was used to create and get user information. Therefore when the user clicks the "sign in with google" button they are navigated to Goole Oauth authorization page. Here they verify who they are using googles authorization api and then get navigated to their profile page for House Share App once House Share App receives verification from Google that they are who they say they are. |
 
 - The Profile page is described by the two images below
+  | Profile Page Top Half | Profile Page Bottom Half |
+  |:----------------------: |:--------------------------: |
+  |!["Profile One"](/client/public/assets/images/readme/Profile_page_1.png)|!["Profile Two"](/client/public/assets/images/readme/Profile_page_2.png)|
+  | The above image shows the top half of the user profile page. Here the users avatar is displayed, as well as come basic info about their account. There is a button that allows the user to connect their stripe account. Once it is connected the button renders to be able to disconnect account. | The above page shows the bottom half the user page. Here all the listings the user has created are displayed as well as all the bookings the user has made. |
 
-|                                                                                                                                       Profile Page Top Half                                                                                                                                        |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                                                              !["Profile One"](/client/public/assets/images/readme/Profile_page_1.png)                                                                                                              |
-| The above image shows the top half of the user profile page. Here the users avatar is displayed, as well as come basic info about their account. There is a button that allows the user to connect their stripe account. Once it is connected the button renders to be able to disconnect account. |
-
-|                                                                  Profile Page Bottom Half                                                                   |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                          !["Profile Two"](/client/public/assets/images/readme/Profile_page_2.png)                                           |
-| The above page shows the bottom half the user page. Here all the listings the user has created are displayed as well as all the bookings the user has made. |
-
--
-
-!["Comment on Announcement"](/client/public/assets/images/readme/comment.png)
-
-- The teacher has access to an additional page known as the gradebook. The gradebook has an assigments and gradebook tab. The assignments tab is where the teacher can create an assignment and save it to the database. The gradebook automatically lists all the students that have joined the class and will automatically render a column for any assignment the teacher creates.
+- Listings Page is described below.
+  | Listings Page |
+  |:-------------:|
+  |!["Listings"](/client/public/assets/images/readme/Listings_page.png) |
+  |At any time throughout the app the user can type a search query into the search bar in the header and submit it. This will navigate the user to the listings page which displays all the listings that exist in the database based on that query. The listings are created in the database using Google geocode Api so they are searchable by city, state, or country.|
 
 |                      Teacher Gradebook Page                       |
 | :---------------------------------------------------------------: |
