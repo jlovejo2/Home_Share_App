@@ -47,12 +47,19 @@ See the layout of the app below.
 - The home page is described by the two images below.
   | Starting page of App Top Half | Start page of App Bottom Half |
   | :---------------------------: | :-------------------------------------: |
-  | !["Starting page of App Image One"](/client/public/assets/images/readme/home_page_One.jpg)|["Starting page of App Image Two"](/client/public/assets/images/readme/home_page_Two.png)|
+  | !["Starting page of App Image One"](/client/public/assets/images/readme/home_page_One.jpg)|!["Starting page of App Image Two"](/client/public/assets/images/readme/home_page_Two.png)|
   | This first shows the upper half the page consisting of the header and then four images that when clicked will automatically run a search for listings in the city shown by the images. The app header is within the green box and consists of a clickable logo(will take user back to home page), a search bar that will search for lisitings based on user's query, a host button which allows a logged in user to create a listing, and then a conditional button that allows user to sign in. Once user is signed in the conditional button will switch to a dropwdown menu that will either allow user to navigate to profile page or sign out. | The second image(above) shows the rest of the home page for the Home Share App. The first section displays a description explaining what the Home Share Apps goal is and has a button that allows that when clicked will run a search for all listings in the United States. The next section lists the Premium Listings(or four most expensive listings) currently on the App. |
+
+- Listings Page is described below.
+  | Listings Page |
+  |:-------------:|
+  |!["Listings"](/client/public/assets/images/readme/Listings_page.png) |
+  |At any time throughout the app the user can type a search query into the search bar in the header and submit it. This will navigate the user to the listings page which displays all the listings that exist in the database based on that query. The listings are created in the database using Google geocode Api so they are searchable by city, state, or country.|
 
 - The Login Page is described below.
   | Login Page |
-  | :------------------: | !["Login"](/client/public/assets/images/readme/Login_page.png) |
+  | :------------------: |
+  | !["Login"](/client/public/assets/images/readme/Login_page.png) |
   | The above image shows the login page. User navigates here by clicking the "sign in" button. For this site google Oauth 2 was used to create and get user information. Therefore when the user clicks the "sign in with google" button they are navigated to Goole Oauth authorization page. Here they verify who they are using googles authorization api and then get navigated to their profile page for House Share App once House Share App receives verification from Google that they are who they say they are. |
 
 - The Profile page is described by the two images below
@@ -61,21 +68,41 @@ See the layout of the app below.
   |!["Profile One"](/client/public/assets/images/readme/Profile_page_1.png)|!["Profile Two"](/client/public/assets/images/readme/Profile_page_2.png)|
   | The above image shows the top half of the user profile page. Here the users avatar is displayed, as well as come basic info about their account. There is a button that allows the user to connect their stripe account. Once it is connected the button renders to be able to disconnect account. | The above page shows the bottom half the user page. Here all the listings the user has created are displayed as well as all the bookings the user has made. |
 
-- Listings Page is described below.
-  | Listings Page |
+- The Listing page (shows details of listing) is described by the two images below.
+  | Listing Page Top Half | Listing Page Bottom Half |
+  |:--------------------: | :------------------------: |
+  |!["Listing One"](/client/public/assets/images/readme/Listing_page_1.png)| !["Listing Two"](/client/public/assets/images/readme/Listing_page_2.png) |
+  | On the left is the image of the listing and below that are the location and the title for the listing. On the left is the interface for checking available dates and proceeding to book a listing | If the user scrolls down there is more information for the listing including: some host info and descrition of the listing. |
+
+- This set of images shows datepicker and booking interface for listing page
+  | Listing Page Date Picker | Listing Page Booking Modal |
+  | :-------------------------------------------------: |:------------------------------:|
+  | !["Datepicker"](/client/public/assets/images/readme/Listing_page_datepicker.png) | !["Booking Modal"](/client/public/assets/images/readme/Listing_page_book-modal.png) |
+  | The datepicker for the listing page has validation built into so no dates that are already booked can be selected, dates in the past can't be selected, and user can only book dates within 3 months of that day. User also must pick a check-in date first before picking a checkout date. This was done in order to aid validation that makes sure check-in date is before check-out. | Once dates are selected that are valid user can click the "Request to book" button which will render the book modal. It will display information for the user to verify is correct as well as show them the cost of their booking. User can then add credit card info and proceed to book the listing. At the very top of this image is a notification that will be displayed if an error occurs when the user tries to book the listing. |
+
+- This images shows the page user is navigated to and notification that displays if booking is successful
+  | Successful booking notification |
+  | :-----------------------------------------------------------------------------: |
+  | !["Success"](/client/public/assets/images/readme/successful_booking.png) |
+  | When the User completes a successful booking the booking modal is closed and notification will render notifying them that their booking was successful. This notification is displayed in upper left corner. |
+
+- User can't host a listing without connecting a Stripe Account
+  | Can't Host without Stripe Account Connected |
+  |:-------------------------------------------:|
+  |!["No Stripe"](/client/public/assets/images/readme/host_no_stripe.jpg)|
+  | The host button in the app header is highlighted by the green box in above image. If the user has not connected their stripe account then the host page will display the message above. |
+
+- Host a listing page shown below
+  | Host Page |
+  | :-------------------------------------------------------------------: |
+  | !["Host One"](/client/public/assets/images/readme/host_listing_1.png) !["Host Two"](/client/public/assets/images/readme/host_listing_2.png) |
+  | The host page is where the user enters all the information that is displayed on the listing page. It is also used to perform the booking computations for per day rental. |
+
+- How to Logout
+  | Logging Out |
   |:-------------:|
-  |!["Listings"](/client/public/assets/images/readme/Listings_page.png) |
-  |At any time throughout the app the user can type a search query into the search bar in the header and submit it. This will navigate the user to the listings page which displays all the listings that exist in the database based on that query. The listings are created in the database using Google geocode Api so they are searchable by city, state, or country.|
-
-|                      Teacher Gradebook Page                       |
-| :---------------------------------------------------------------: |
-| !["GradeBook"](/client/public/assets/images/readme/gradeBook.png) |
-
-- If the teacher clicks on the assignments tab towards the top of the gradebook page. Another table is shown for the class which is the assignments table. In this location the teacher can create an assignment for her class. Once the assignment is created it will automatically be a new new column in the gradebook where the teacher can add grades to it for each student.
-
-|                    Teacher Assignment Tab on Gradebook Page                     |
-| :-----------------------------------------------------------------------------: |
-| !["Assignments"](/client/public/assets/images/readme/addHomeworkAssignment.png) |
+  |!["Logging Out"](/client/public/assets/images/readme/Log-out_page.png)|
+  | To log out a user will click on their avatar icon in the app header. This will display a menu with one of the options being "log out." Clicking this will log the user out and a notification will be displayed if the log out was successful. |
 
 ## Guest Login Info
 
@@ -85,70 +112,86 @@ See the layout of the app below.
 
 ## Coding Languages Used
 
-- HTML
-- CSS
+- Typescript
 - Javascript
-- React.js
 - JSX
-- Node.js
-
-## NPMs Used:
-
-# Client-Side
-
-- @material-ui/core
-- @material-ui/icons
-- @testing-library/jest-dom
-- @testing-library/react
-- @testing-library/user-event
-- animate.css
-- material-table
-- mdbreact
-- react
-- react-app-polyfill
-- react-dom
-- react-router-dom
-- react-scripts
-- react-toastify
-- styled-components
-
-# Back-end
-
-- @date-io/date-fns
-- @material-ui/core
-- axios
-- bcrypt
-- bcryptjs
-- body-parser
-- chance
-- cookie-parser
-- cors
-- dotenv
-- express
-- if-env
-- is-empty
-- jsonwebtoken
-- moment
-- mongodb
-- mongoose
-- morgan
-- multer
-- nodemailer - for version 2.0
-- passport
-- passport-http-bearer
-- passport-jwt
-- path
-- socket.io - didn't implement for version 2.0
-- validator"
+- CSS
 
 ## CSS Framework:
 
-- Material UI
-- MdbReact
+- Ant-design
+
+## Apis Used:
+
+- Stripe
+- Google APIs people
+- Google APIs Geocode
+- Google APIs OAuth 2.0
+- Cloudinary
+
+## NPMs Used:
+
+### Client-Side
+
+- antd
+- apollo-boost
+- graphql
+- moment
+- react
+- react-apollo
+- react-dom
+- react-router-dom
+- react-scripts
+- react-stripe-elements
+- typescript
+- @ant-design/compatible
+- @ant-design/icons
+- @testing-library/jest-dom
+- @testing-library/react
+- @testing-library/user-event
+- @types/graphql
+- @types/jest
+- @types/node
+- @types/react
+- @types/react-dom
+- @types/react-router-dom
+- @types/react-stripe-elements
+
+### BackEnd
+
+- @google/maps
+- @googlemaps/google-maps-services-js
+- apollo-server-express
+- body-parser
+- cloudinary
+- cookie-parser
+- express
+- googleapis
+- graphql
+- lodash.merge
+- mongodb
+- stripe
+- dotenv
+- eslint
+- nodemon
+- ts-node
+- typescript
+- @types/body-parser
+- @types/cookie-parser
+- @types/dotenv
+- @types/express
+- @types/google\_\_maps
+- @types/googlemaps
+- @types/graphql
+- @types/lodash.merge
+- @types/mongodb
+- @types/node
+- @typescript-eslint/eslint-plugin
+- @typescript-eslint/parser
 
 ## Structure of Code and Functions
 
-# Front-End - Client folder
+### Front-End - Client folder
 
 - public folder
   - assets folder - contains images used in the readme file
@@ -167,7 +210,7 @@ See the layout of the app below.
   - index.css - contains all css that is global to the app
   - Index.jsx - beginning of the app. App.jsx is imported into it and a react render is created.
 
-# Back-end
+### Back-end
 
 - controllers folder
   - classroomController.js - contains all server methods that interact with the classroom, announcement, assignment, comment schemas in the database
