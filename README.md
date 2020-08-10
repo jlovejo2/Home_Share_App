@@ -197,18 +197,84 @@ See the layout of the app below.
   - assets folder - contains images used in the readme file
   - index.html - with react does not contain much code but necessary external links for library sources. It interacts with App.js
 - src folder - this is the meat of react and holds most of the front-end code
-  - components folder - all the html components that require some custom props and sometimes custom css have their own folder. Folders will sometimes contain multipled components. In each folder is a jsx file. These components are set-up this way so that they can be imported and used in whatever page requires them.
-  - history folder - contains a jsx file that imports the createBrowserHistory function from the 'history' component of react. This is then imported in certain files inorder to navigate to various pages based on specific conditions
-  - images folder - this folder contains the logo images.
-  - pages folder - Contains all the jsx files for each page in the app
-    - pageStyle folder - contains two css files one for login and one for the search
-    - utils folder
-      - api.js - contains all the client side axios calls to the api.
-      - customFunctions.js - contains any custom function that is used on the client side such as date formatting and image conversion to base64 string. These functions are then imported when necessary
-      - RootContext.js - this is a necessary file when using useContext hook in react. App was initial designed with it but proved uneccassry. File left in as a reminded of where it can go in structure when using useContext.
-  - App.jsx - where routes of the single page app are declared. Also where history is imported and passed in as prop to router. This page establishes all the routing for user and react.
-  - index.css - contains all css that is global to the app
-  - Index.jsx - beginning of the app. App.jsx is imported into it and a react render is created.
+
+  - lib folder
+
+    - [components folder - contains components that are used across multiple pages](/client/src/lib/components)
+      - AppHeaderSkeleton - code for the creation of the skeleton for Appheader when page is loading
+      - ErrorBanner - a component that displays a generic error banner
+      - ListingCard - component for rendering the listing cards used on home page and listings page
+      - PageSkeleton - component that creates a generic skeleton for when the entire page is loading
+      - index.tsx - references and exports all these components
+    - graphql folder
+
+      - [mutations folder - contains all the client-side mutation code and type definitions used to access database through graphql](/client/src/lib/components/graphql/mutations)
+        - ConnectStripe - contains the graphql code to access the corresponding connect to stripe mutation for server
+        - ConnectBooking - contains the graphql code to access the corresponding connect to stripe and create booking mutation for server
+        - DisconnectStripe - contains the graphql code to access the corresponding disconnect from stripe mutation for server
+        - HostListing - contains the graphql code to access the corresponding create a listing mutation for server
+        - LogIn - contains the graphql code to access the corresponding user log in mutation for server
+        - LogOut - contains the graphql code to access the corresponding user log out mutation for server
+      - [queries folder - contains all the client-side queries and type definitions used to access database through graphql](/client/src/lib/components/graphql/queries)
+        - AuthUrl - contains the graphql query code to request user authorization from server(server then requests authorization from Google OAuth)
+        - Listing - conatins the graphql query code to request information for a Listing based on its id
+        - Listings - contains the graphql query code to request all listings and their info based on a given location
+        - User - contains the graphql query code to request user information
+      - [globalTypes.ts - contains all type and interface definitions for input information to graphql queries and mutations](/client/src/lib/components/graphql/globalTypes.ts)
+      - [hooks folder - contains all custom client-side react hooks](/client/src/lib/components/hooks/)
+        - useScrollToTop - a custom hook that sets the scroll to the top of the page when a user is navigated to it
+      - [utils folder - contains all the custom functions used for client side formating, as well as error and success notification components ](/client/src/lib/components/utils)
+      - types.ts - contains the type definition for the Viewer interface.
+
+  - [sections folder - contains all the front-end code for each page and react functional components](/client/src/sections/)
+
+    - AppHeader folder - code for AppHeader
+      - index.tsx - contains all the code specific to rendering the page itself
+      - components folder - contains any components that were created specific to this page
+    - Home - code for Home Page
+      - index.tsx - contains all the code specific to rendering the page itself
+      - components folder - contains any components that were created specific to this page
+    - Host - code for Hosting a listing Page
+      - index.tsx - contains all the code specific to rendering the page itself
+      - components folder - contains any components that were created specific to this page
+    - Listing - code for Listing Page
+      - index.tsx - contains all the code specific to rendering the page itself
+      - components folder - contains any components that were created specific to this page
+    - Listings - code for page that displays listings based on search criteria
+      - index.tsx - contains all the code specific to rendering the page itself
+      - components folder - contains any components that were created specific to this page
+    - Login - code for page rendered when user attempts to sign in
+      - index.tsx - contains all the code specific to rendering the page itself
+      - components folder - contains any components that were created specific to this page
+    - Notfound - code for page that renders when a url that doesn't exist is entered
+      - index.tsx - contains all the code specific to rendering the page itself
+      - components folder - contains any components that were created specific to this page
+    - Stripe - code for page that renders when user connects stripe account
+      - index.tsx - contains all the code specific to rendering the page itself
+      - components folder - contains any components that were created specific to this page
+    - User - code for profile page
+
+      - index.tsx - contains all the code specific to rendering the page itself
+      - components folder - contains any components that were created specific to this page
+
+  - styles folder - contains all global css files
+  - index.tsx - is the top most page for react-typescript code. This is where the user enters the client-side and then is routed to all the subsequent components from
+  - react-app.env.d.ts - tells typescript where to look for the typescript definitions for react code
+  - serviceWorker.ts
+
+
+    - contains a jsx file that imports the createBrowserHistory function from the 'history' component of react. This is then imported in certain files inorder to navigate to various pages based on specific conditions
+
+- images folder - this folder contains the logo images.
+- pages folder - Contains all the jsx files for each page in the app
+  - pageStyle folder - contains two css files one for login and one for the search
+  - utils folder
+    - api.js - contains all the client side axios calls to the api.
+    - customFunctions.js - contains any custom function that is used on the client side such as date formatting and image conversion to base64 string. These functions are then imported when necessary
+    - RootContext.js - this is a necessary file when using useContext hook in react. App was initial designed with it but proved uneccassry. File left in as a reminded of where it can go in structure when using useContext.
+- App.jsx - where routes of the single page app are declared. Also where history is imported and passed in as prop to router. This page establishes all the routing for user and react.
+- index.css - contains all css that is global to the app
+- Index.jsx - beginning of the app. App.jsx is imported into it and a react render is created.
 
 ### Back-end
 
