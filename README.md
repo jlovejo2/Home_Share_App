@@ -46,27 +46,31 @@ See the layout of the app below.
 
 - The home page is shown by the two images below.
 
-!["Starting page of App Image One"](/client/public/assets/images/readme/home_page_One.jpg)
+  |                               Starting page of App Top Half                                |
+  | :----------------------------------------------------------------------------------------: |
+  | !["Starting page of App Image One"](/client/public/assets/images/readme/home_page_One.jpg) |
 
 - This first shows the upper half the page consisting of the header and then four images that when clicked will automatically run a search for listings in the city shown by the images. The app header is within the green box and consists of a clickable logo(will take user back to home page), a search bar that will search for lisitings based on user's query, a host button which allows a logged in user to create a listing, and then a conditional button that allows user to sign in. Once user is signed in the conditional button will switch to a dropwdown menu that will either allow user to navigate to profile page or sign out.
 
-!["Starting page of App Image Two"](/client/public/assets/images/readme/home_page_Two.jpg)
+|                               Start page of App Bottom Half                                |
+| :----------------------------------------------------------------------------------------: |
+| !["Starting page of App Image Two"](/client/public/assets/images/readme/home_page_Two.png) |
 
 - The second image(above) shows the rest of the home page for the Home Share App. The first section displays a description explaining what the Home Share Apps goal is and has a button that allows that when clicked will run a search for all listings in the United States. The next section lists the Premium Listings(or four most expensive listings) currently on the App.
 
-|                          Login Dialog                           |                            Register Dialog                            |
-| :-------------------------------------------------------------: | :-------------------------------------------------------------------: |
-| !["Login"](/client/public/assets/images/readme/loginDialog.png) | !["Register"](/client/public/assets/images/readme/registerDialog.png) |
+|                           Login Page                           |
+| :------------------------------------------------------------: |
+| !["Login"](/client/public/assets/images/readme/Login_page.png) |
 
-- Once a user has logged into the website they start off at the dashboard. There are several links in the top right corner that allow the user to navigate to different pages. Also if the user has created a course or joined a course the course cards will be rendered onto the dashboard page shown in the image. The class cards render differently depending on if the user is a teacher or a student. The two main differences are that the cards have a red trim if the user is a student and the gradebook button does not render onto the card.
+- The above image shows the login page. User navigates here by clicking the "sign in" button. For this site google Oauth 2 was used to create and get user information. Therefore when the user clicks the "sign in with google" button they are navigated to Goole Oauth authorization page. Here they verify who they are using googles authorization api and then get navigated to their profile page for House Share App once House Share App receives verification from Google that they are who they say they are.
 
-!["Dashboard"](/client/public/assets/images/readme/dashboard.png)
+!["Profile One"](/client/public/assets/images/readme/Profile_page_1.png)
 
-- If the user clicks on the opening door of a class card they are taken to the classroom page. This page shows the classroom title and description at the top of the page. There is an announcement board. If the user is a teacher accessing this page the "+" button renders which allows them to make create announcements on the board. The teacher will also have the "trash can" icon visible in order to delete the announcement if desired. If the teacher has created an assignment (this is done at the gradebook page), that assignment and some of its info is rendered onto the classroom page.
+-
 
-!["Classroom"](/client/public/assets/images/readme/classroom.png)
+!["Profile Two"](/client/public/assets/images/readme/Profile_page_2.png)
 
-- One more thing about the classroom page is that any user can comment on an announcement on the board. The comments can be expanded by the expand icon. To comment a user needs to click on the message icon and then type their desired message into the text box. Upon hitting enter the comment will render as a comment on the annoucement board. Beware your user name and time of comment will automatically be rendered along with your message. A teacher has the ability to delete a comment when it is posted. This is done by clicking on the trash can.
+-
 
 !["Comment on Announcement"](/client/public/assets/images/readme/comment.png)
 
