@@ -278,7 +278,7 @@ export const Host = ({ viewer }: Props) => {
               name="image"
               listType="picture-card"
               showUploadList={false}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              action="https://run.mocky.io/v3/f4e571d6-5a54-453f-9eda-b60a07f26795"
               beforeUpload={beforeImageUpload}
               onChange={handleImageUpload}
             >
