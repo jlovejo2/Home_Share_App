@@ -11,6 +11,13 @@ export const Cloudinary = {
     });
 
     return res.secure_url;
-    /*eslint-enable @typescript-eslint/camelcase */
   },
+  delete: async (image: string) => {
+    const res = await cloudinary.v2.uploader.destroy(image, function (result) {
+      console.log(result);
+    });
+
+    return res.secure_url;
+  },
+  /*eslint-enable @typescript-eslint/camelcase */
 };
