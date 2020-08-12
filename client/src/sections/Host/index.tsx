@@ -89,10 +89,17 @@ export const Host = ({ viewer }: Props) => {
 
   const handleImageUpload = (info: UploadChangeParam) => {
     const { file } = info;
-    console.log(file);
+    // console.log(file);
 
     if (file.status === "uploading") {
       setImageLoading(true);
+      return;
+    }
+
+    if (file.status === "error") {
+      setImageLoading(false);
+      displayErrorMessage(`Error uploading image: ${file.error}`);
+      console.log(file.error);
       return;
     }
 
