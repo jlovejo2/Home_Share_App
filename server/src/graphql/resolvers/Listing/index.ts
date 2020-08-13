@@ -12,6 +12,8 @@ import {
   ListingsQuery,
   HostListingArgs,
   HostListingInput,
+  PreviewListingArgs,
+  PreviewListingInput,
 } from "./types";
 import { ObjectId } from "mongodb";
 import { authorize } from "../../../lib/utils";
@@ -139,7 +141,7 @@ export const listingsResolver: IResolvers = {
         throw new Error("invalid address input");
       }
 
-      const imageUrl = await Cloudinary.upload(input.image);
+      const imageUrl = await Cloudinary.upload(input.image, input.imagePath);
 
       const insertResult = await db.listings.insertOne({
         _id: new ObjectId(),
@@ -163,6 +165,26 @@ export const listingsResolver: IResolvers = {
       );
 
       return insertedListing;
+    },
+    hostImagePreview: async (
+      _root: undefined,
+      { input }: PreviewListingArgs,
+      { db, req }: { db: Database; req: Request }
+    ): Promise<User | null> => {
+      try {
+        await db.users.updateOne(
+          {
+            _id: input.id,
+          },
+          { $push: { previewURL: input.imageURL } }
+        );
+      } catch (error) {
+        console.log(`Error updating user preview: ${error}`);
+      }
+
+      const host = await db.users.findOne({ _id: input.id });
+
+      return host;
     },
   },
   Listing: {
