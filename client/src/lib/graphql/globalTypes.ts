@@ -32,6 +32,7 @@ export interface HostListingInput {
   title: string;
   description: string;
   image: string;
+  imagePath: string;
   type: ListingType;
   address: string;
   price: number;
@@ -40,6 +41,11 @@ export interface HostListingInput {
 
 export interface LogInInput {
   code: string;
+}
+
+export interface PreviewListingInput {
+  id: string;
+  imageURL: string;
 }
 
 //==============================================================
