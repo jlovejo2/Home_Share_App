@@ -15,7 +15,7 @@ const parseAddress = (addressComponents: AddressComponent[]) => {
   let city = null;
 
   for (const component of addressComponents) {
-    console.log(component);
+    // console.log(component);
     const componentTypesArray = component.types;
 
     for (const typesIndex of componentTypesArray) {
