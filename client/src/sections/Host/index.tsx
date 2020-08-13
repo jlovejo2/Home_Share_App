@@ -23,7 +23,12 @@ import {
 import { useScrollToTop } from "../../lib/hooks";
 import { Viewer } from "../../lib/types";
 import { ListingType } from "../../lib/graphql/globalTypes";
-import { Icon } from "@ant-design/compatible";
+import {
+  BankTwoTone,
+  HomeTwoTone,
+  LoadingOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import {
   iconColor,
   displayErrorMessage,
@@ -189,11 +194,11 @@ export const Host = ({ viewer }: Props) => {
         >
           <Radio.Group>
             <Radio.Button value={ListingType.APARTMENT}>
-              <Icon type="bank" style={{ color: iconColor }} />
+              <BankTwoTone twoToneColor={iconColor} />
               <span>Apartment</span>
             </Radio.Button>
             <Radio.Button value={ListingType.HOUSE}>
-              <Icon type="home" style={{ color: iconColor }} />
+              <HomeTwoTone twoToneColor={iconColor} />
               <span>House</span>
             </Radio.Button>
           </Radio.Group>
@@ -312,7 +317,7 @@ export const Host = ({ viewer }: Props) => {
                 <img src={imageBase64Value} alt="Listing" />
               ) : (
                 <div>
-                  <Icon type={imageLoading ? "loading" : "plus"} />
+                  {imageLoading ? <LoadingOutlined /> : <PlusOutlined />}
                   <div className="ant-upload-text">Upload</div>
                 </div>
               )}
