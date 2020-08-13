@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
-import { HOST_LISTING, HOST_IMAGE_PREVIEW } from "../../lib/graphql/mutations";
+import { HOST_LISTING } from "../../lib/graphql/mutations";
 import {
   HostListing as HostListingData,
   HostListingVariables,
 } from "../../lib/graphql/mutations/HostListing/__generated__/HostListing";
-import {
-  HostImagePreview as HostImagePreviewData,
-  HostImagePreviewVariables,
-} from "../../lib/graphql/mutations/HostImagePreview/__generated__/HostImagePreview";
+// import {
+//   HostImagePreview as HostImagePreviewData,
+//   HostImagePreviewVariables,
+// } from "../../lib/graphql/mutations/HostImagePreview/__generated__/HostImagePreview";
 import {
   Button,
   Form,
@@ -29,7 +29,7 @@ import {
   displayErrorMessage,
   displaySuccessNotification,
 } from "../../lib/utils";
-import { UploadChangeParam, UploadProps } from "antd/lib/upload";
+import { UploadChangeParam } from "antd/lib/upload";
 import { RcCustomRequestOptions } from "antd/lib/upload/interface";
 // import { Store } from "antd/lib/form/interface";
 
@@ -59,23 +59,6 @@ export const Host = ({ viewer }: Props) => {
       );
     },
   });
-
-  const [
-    hostImagePreview,
-    { loading: previewLoading, data: previewData },
-  ] = useMutation<HostImagePreviewData, HostImagePreviewVariables>(
-    HOST_IMAGE_PREVIEW,
-    {
-      onCompleted: () => {
-        displaySuccessNotification("Preview loaded");
-      },
-      onError: () => {
-        displayErrorMessage(
-          "Sorry, we weren't able to load preview.  Please try again later."
-        );
-      },
-    }
-  );
 
   useScrollToTop();
 
