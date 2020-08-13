@@ -42,12 +42,22 @@ export interface HostListingInput {
   title: string;
   description: string;
   image: string;
+  imagePath: string;
   type: ListingType;
   address: string;
   price: number;
   numOfGuests: number;
 }
 
+export interface PreviewListingInput {
+  id: string;
+  imageURL: string;
+}
+
 export interface HostListingArgs {
   input: HostListingInput;
+}
+
+export interface PreviewListingArgs {
+  input: PreviewListingInput;
 }
