@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
-import { HOST_LISTING } from "../../lib/graphql/mutations";
+import { HOST_LISTING, HOST_IMAGE_PREVIEW } from "../../lib/graphql/mutations";
 import {
   HostListing as HostListingData,
   HostListingVariables,
 } from "../../lib/graphql/mutations/HostListing/__generated__/HostListing";
+import {
+  HostImagePreview as HostImagePreviewData,
+  HostImagePreviewVariables,
+} from "../../lib/graphql/mutations/HostImagePreview/__generated__/HostImagePreview";
 import {
   Button,
   Form,
@@ -25,7 +29,8 @@ import {
   displayErrorMessage,
   displaySuccessNotification,
 } from "../../lib/utils";
-import { UploadChangeParam } from "antd/lib/upload";
+import { UploadChangeParam, UploadProps } from "antd/lib/upload";
+import { RcCustomRequestOptions } from "antd/lib/upload/interface";
 // import { Store } from "antd/lib/form/interface";
 
 interface Props {
@@ -46,6 +51,7 @@ export const Host = ({ viewer }: Props) => {
   >(HOST_LISTING, {
     onCompleted: () => {
       displaySuccessNotification("You've successfully created your listing!");
+      setImageLoading(false);
     },
     onError: () => {
       displayErrorMessage(
@@ -54,18 +60,36 @@ export const Host = ({ viewer }: Props) => {
     },
   });
 
+  const [
+    hostImagePreview,
+    { loading: previewLoading, data: previewData },
+  ] = useMutation<HostImagePreviewData, HostImagePreviewVariables>(
+    HOST_IMAGE_PREVIEW,
+    {
+      onCompleted: () => {
+        displaySuccessNotification("Preview loaded");
+      },
+      onError: () => {
+        displayErrorMessage(
+          "Sorry, we weren't able to load preview.  Please try again later."
+        );
+      },
+    }
+  );
+
   useScrollToTop();
 
   const handleHostListing = (values: any) => {
     console.log("success: ", values);
-
+    console.log(viewer.id);
     const fullAddress = `${values.address}, ${values.city}, ${values.state}, ${values.zip}`;
 
     const input = {
       ...values,
       address: fullAddress,
-      image: imageBase64Value,
       price: values.price * 100,
+      imagePath: `TinyHouse_Assets/${viewer.id}/`,
+      image: imageBase64Value,
     };
 
     delete input.city;
@@ -81,6 +105,13 @@ export const Host = ({ viewer }: Props) => {
     });
   };
 
+  const dummyRequest = ({ onSuccess, file }: RcCustomRequestOptions) => {
+    console.log(viewer.id);
+    setTimeout(() => {
+      onSuccess({ response: "ok" }, file);
+    }, 1000);
+  };
+
   const handleHostListingFormFail = (errorInfo: any) => {
     console.log("error: ", errorInfo);
     displayErrorMessage("Please fill in required fields.");
@@ -92,18 +123,22 @@ export const Host = ({ viewer }: Props) => {
     // console.log(file);
 
     if (file.status === "uploading") {
+      console.log(file);
       setImageLoading(true);
       return;
     }
 
     if (file.status === "error") {
+      console.log(file);
       setImageLoading(false);
       displayErrorMessage(`Error uploading image: ${file.error}`);
       console.log(file.error);
+      console.log(info.event);
       return;
     }
 
     if (file.status === "done" && file.originFileObj) {
+      console.log(file);
       getBase64Value(file.originFileObj, (imageBase64Value) => {
         setImageBase64Value(imageBase64Value);
         console.log(imageBase64Value);
@@ -285,7 +320,7 @@ export const Host = ({ viewer }: Props) => {
               name="image"
               listType="picture-card"
               showUploadList={false}
-              action="https://run.mocky.io/v3/f4e571d6-5a54-453f-9eda-b60a07f26795"
+              customRequest={dummyRequest}
               beforeUpload={beforeImageUpload}
               onChange={handleImageUpload}
             >
