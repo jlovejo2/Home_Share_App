@@ -21,7 +21,7 @@ export const Cloudinary = {
 
       return res.secure_url;
     } catch (error) {
-      console.log(`Failed to upload to cloudinary: ${error}`);
+      throw new Error(`Failed to upload to cloudinary: ${error}`);
     }
   },
   delete: async (image: string) => {
