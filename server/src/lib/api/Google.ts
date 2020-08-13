@@ -44,16 +44,20 @@ export const Google = {
     ],
   }),
   logIn: async (code: string) => {
-    const { tokens } = await auth.getToken(code);
+    try {
+      const { tokens } = await auth.getToken(code);
 
-    auth.setCredentials(tokens);
+      auth.setCredentials(tokens);
 
-    const { data } = await google.people({ version: "v1", auth }).people.get({
-      resourceName: "people/me",
-      personFields: "emailAddresses,names,photos",
-    });
+      const { data } = await google.people({ version: "v1", auth }).people.get({
+        resourceName: "people/me",
+        personFields: "emailAddresses,names,photos",
+      });
 
-    return { user: data };
+      return { user: data };
+    } catch (error) {
+      throw new Error(`Failed to login in user in Google: ${error}`);
+    }
   },
   geocode: async (address: string) => {
     //this is geocoding response from api
