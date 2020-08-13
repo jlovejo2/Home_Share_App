@@ -51,6 +51,7 @@ export const typeDefs = gql`
 
   type User {
     id: ID!
+    previewURL: String
     name: String!
     avatar: String!
     contact: String!
@@ -80,10 +81,16 @@ export const typeDefs = gql`
     title: String!
     description: String!
     image: String!
+    imagePath: String!
     type: ListingType!
     address: String!
     price: Int!
     numOfGuests: Int!
+  }
+
+  input PreviewListingInput {
+    id: String!
+    imageURL: String!
   }
 
   input CreateBookingInput {
@@ -112,5 +119,6 @@ export const typeDefs = gql`
     disconnectStripe: Viewer!
     hostListing(input: HostListingInput!): Listing!
     createBooking(input: CreateBookingInput!): Booking!
+    hostImagePreview(input: PreviewListingInput!): User!
   }
 `;
