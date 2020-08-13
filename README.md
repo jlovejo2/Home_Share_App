@@ -286,3 +286,4 @@ See the layout of the app below.
 ## Things To Improve On
 
 - Add a chat for users to communicate with hosts of the listings once they've booked
+- Add a contact administrator place for users to input request for any issues that are found
