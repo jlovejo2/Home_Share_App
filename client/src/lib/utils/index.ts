@@ -22,5 +22,10 @@ export const displaySuccessNotification = (
 };
 
 export const displayErrorMessage = (error: string) => {
+  message.config({
+    top: 50,
+    duration: 2,
+  });
+
   return message.error(error);
 };
