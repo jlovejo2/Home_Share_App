@@ -6,7 +6,7 @@ import {
   ReactStripeElements,
 } from "react-stripe-elements";
 import { Modal, Button, Divider, Typography } from "antd";
-import { Icon } from "@ant-design/compatible";
+import { KeyOutlined } from "@ant-design/icons";
 import moment, { Moment } from "moment";
 import { CREATE_BOOKING } from "../../../../lib/graphql/mutations";
 import {
@@ -109,7 +109,7 @@ export const ListingCreateBookingModal = ({
       <div className="listing-booking-modal">
         <div className="listing-booking-modal__intro">
           <Title className="listing-booking-modal__intro-title">
-            <Icon type="key"></Icon>
+            <KeyOutlined />
           </Title>
           <Title level={3} className="listing-booking-modal__intro-title">
             Book your trip
