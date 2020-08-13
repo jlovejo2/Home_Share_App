@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Typography } from "antd";
-import { Icon } from "@ant-design/compatible";
+// import { Icon } from "@ant-design/compatible";
+import { UserOutlined } from "@ant-design/icons";
 import { iconColor, formatListingPrice } from "../../utils";
 
 interface Props {
@@ -45,7 +46,7 @@ export const ListingCard = ({ listing }: Props) => {
             </Text>
           </div>
           <div className="listing-card__dimensions listing-card__dimensions--guest">
-            <Icon type="user" style={{ color: iconColor }} />
+            <UserOutlined style={{ color: iconColor }} />
             <Text>{numOfGuests} guests</Text>
           </div>
         </div>
