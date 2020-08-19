@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Typography } from "antd";
-// import { Icon } from "@ant-design/compatible";
 import { UserOutlined } from "@ant-design/icons";
 import { iconColor, formatListingPrice } from "../../utils";
 
