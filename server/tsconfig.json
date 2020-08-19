@@ -8,7 +8,7 @@
     //location of files for typeScript code
     "rootDir": "./src",
     //where typeScript code is compiled into javaScript code
-    "outDir": "./build",
+    "outDir": "../house_share_deploy/build",
     //helps to compile commonJs modules into ES6 modules
     "esModuleInterop": true,
     //allows us to further enable strict typing options
